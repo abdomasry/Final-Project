@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>بوابة الشركاء | المجلس الرقمي</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#dee9fc",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-container": "#e6eeff",
+              "on-secondary-fixed-variant": "#444747",
+              "on-tertiary-fixed-variant": "#005046",
+              "error": "#ba1a1a",
+              "primary-container": "#0f766e",
+              "tertiary": "#005c51",
+              "surface-variant": "#d9e3f6",
+              "surface-dim": "#d0dbed",
+              "surface-bright": "#f8f9ff",
+              "tertiary-fixed-dim": "#7ad7c6",
+              "secondary": "#5c5f5e",
+              "background": "#f8f9ff",
+              "surface-container-highest": "#d9e3f6",
+              "primary": "#005c55",
+              "on-background": "#121c2a",
+              "on-primary-container": "#a3faef",
+              "primary-fixed-dim": "#80d5cb",
+              "on-surface-variant": "#3e4947",
+              "on-primary": "#ffffff",
+              "surface-container-low": "#eff4ff",
+              "on-error-container": "#93000a",
+              "inverse-primary": "#80d5cb",
+              "tertiary-container": "#007769",
+              "surface-container-lowest": "#ffffff",
+              "surface": "#f8f9ff",
+              "tertiary-fixed": "#96f3e1",
+              "on-tertiary": "#ffffff",
+              "outline": "#6e7977",
+              "on-primary-fixed-variant": "#00504a",
+              "on-secondary-container": "#606363",
+              "primary-fixed": "#9cf2e8",
+              "on-primary-fixed": "#00201d",
+              "outline-variant": "#bdc9c6",
+              "on-surface": "#121c2a",
+              "error-container": "#ffdad6",
+              "on-secondary-fixed": "#191c1c",
+              "surface-tint": "#006a63",
+              "on-error": "#ffffff",
+              "secondary-fixed-dim": "#c4c7c6",
+              "inverse-surface": "#27313f",
+              "secondary-fixed": "#e1e3e2",
+              "on-tertiary-fixed": "#00201b",
+              "secondary-container": "#dee0df",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#9efbe9"
+            },
+            fontFamily: {
+              "headline": ["IBM Plex Sans Arabic", "Be Vietnam Pro"],
+              "body": ["IBM Plex Sans Arabic", "Be Vietnam Pro"],
+              "label": ["IBM Plex Sans Arabic", "Be Vietnam Pro"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        font-family: 'IBM Plex Sans Arabic', 'Be Vietnam Pro', sans-serif;
+        background-color: #f8f9ff;
+        color: #121c2a;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-nav {
+        background: rgba(248, 249, 255, 0.8);
+        backdrop-filter: blur(12px);
+      }
+    </style>
+</head>
+<body class="bg-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Sidebar (Right-aligned for RTL) -->
+<aside class="h-screen w-64 border-l border-[#bdc9c6]/15 right-0 fixed bg-[#ffffff] dark:bg-slate-900 shadow-[24px_0_24px_-12px_rgba(18,28,42,0.06)] z-50">
+<div class="flex flex-col h-full p-4 gap-2 right-0">
+<div class="flex flex-row-reverse items-center gap-3 px-2 py-6">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div class="text-right">
+<h1 class="text-xl font-black text-[#005c55]">بوابة الشركاء</h1>
+<p class="text-xs text-on-surface-variant">إدارة الخدمات الخاصة بك</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1 mt-4">
+<a class="flex flex-row-reverse items-center gap-3 bg-[#eff4ff] text-[#005c55] rounded-xl p-3 font-bold transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>لوحة التحكم</span>
+</a>
+<a class="flex flex-row-reverse items-center gap-3 text-[#3e4947] hover:bg-[#f8f9ff] p-3 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span>الطلبات</span>
+</a>
+<a class="flex flex-row-reverse items-center gap-3 text-[#3e4947] hover:bg-[#f8f9ff] p-3 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span>الجدول الزمني</span>
+</a>
+<a class="flex flex-row-reverse items-center gap-3 text-[#3e4947] hover:bg-[#f8f9ff] p-3 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>إدارة المستخدمين</span>
+</a>
+<a class="flex flex-row-reverse items-center gap-3 text-[#3e4947] hover:bg-[#f8f9ff] p-3 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>الإعدادات</span>
+</a>
+</nav>
+<div class="mt-auto">
+<button class="w-full bg-primary text-white rounded-xl py-3 px-4 font-bold flex items-center justify-center gap-2 mb-4 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined">add</span>
+<span>إضافة خدمة جديدة</span>
+</button>
+<div class="border-t border-outline-variant/15 pt-4">
+<a class="flex flex-row-reverse items-center gap-3 text-[#3e4947] hover:bg-[#f8f9ff] p-3 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>تسجيل الخروج</span>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="mr-64 p-8 min-h-screen">
+<!-- Header / Top Bar -->
+<header class="flex justify-between items-center mb-10">
+<div class="text-right">
+<h2 class="text-3xl font-bold text-on-surface">مرحباً، المسؤول</h2>
+<p class="text-on-surface-variant">نظرة عامة على حالة المنصة اليوم</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<input class="bg-surface-container-low border-none rounded-xl pr-12 pl-4 py-2.5 focus:ring-2 focus:ring-primary/20 w-64 text-right" placeholder="بحث سريع..." type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<img alt="صورة الملف الشخصي" class="w-10 h-10 rounded-xl object-cover ring-2 ring-primary/10" data-alt="professional portrait of a middle eastern man in a suit, soft studio lighting, high-end corporate style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWLTdbXGpzxiWJvrMn7sBfDyMrXUEltHF7RRwKmeroxMBkiVUZlFO-ZJHXbJgo8z9FrbNQvYlVNaTUsYiPUDpa2jtZEsabijRnbQKSBMHOM97OTdj6_kXrqKOkaRXhq-rsiFCMF9UnjQ1d3q8S7JJWGHpNsVkWOXZeMbscDt7bcvX57IiJ-3-P9XYL6Iul9phmza-I4Iy0GZywtb2po0bP9XT6e3CC_CfI5d_tr9xLaDbBzaiOrMxnOUfN5GV6QLZ2Mrv9HysiFP92"/>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Stats Row -->
+<div class="col-span-12 grid grid-cols-4 gap-6 mb-2">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[24px_0_24px_-12px_rgba(18,28,42,0.04)] flex flex-row-reverse justify-between items-center">
+<div class="w-12 h-12 bg-primary-container/10 rounded-xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div class="text-right">
+<p class="text-on-surface-variant text-sm mb-1">إجمالي المستخدمين</p>
+<h4 class="text-2xl font-bold">١,٢٤٠</h4>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[24px_0_24px_-12px_rgba(18,28,42,0.04)] flex flex-row-reverse justify-between items-center">
+<div class="w-12 h-12 bg-tertiary-container/10 rounded-xl flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">engineering</span>
+</div>
+<div class="text-right">
+<p class="text-on-surface-variant text-sm mb-1">المزودون النشطون</p>
+<h4 class="text-2xl font-bold">٨٤٢</h4>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[24px_0_24px_-12px_rgba(18,28,42,0.04)] flex flex-row-reverse justify-between items-center">
+<div class="w-12 h-12 bg-error-container/20 rounded-xl flex items-center justify-center text-error">
+<span class="material-symbols-outlined">report</span>
+</div>
+<div class="text-right">
+<p class="text-on-surface-variant text-sm mb-1">شكاوى مفتوحة</p>
+<h4 class="text-2xl font-bold">١٢</h4>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[24px_0_24px_-12px_rgba(18,28,42,0.04)] flex flex-row-reverse justify-between items-center">
+<div class="w-12 h-12 bg-primary-container/10 rounded-xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div class="text-right">
+<p class="text-on-surface-variant text-sm mb-1">إجمالي المبيعات</p>
+<h4 class="text-2xl font-bold text-primary">٤٥,٢٠٠ ر.س</h4>
+</div>
+</div>
+</div>
+<!-- User Management Table (Large Area) -->
+<div class="col-span-8 bg-surface-container-lowest rounded-xl shadow-[24px_0_24px_-12px_rgba(18,28,42,0.04)] overflow-hidden">
+<div class="p-6 flex justify-between items-center border-b border-outline-variant/10">
+<div class="flex gap-2">
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold">كل المستخدمين</button>
+<button class="bg-surface-container-low text-on-surface-variant px-4 py-2 rounded-lg text-sm">المزودون</button>
+<button class="bg-surface-container-low text-on-surface-variant px-4 py-2 rounded-lg text-sm">العملاء</button>
+</div>
+<h3 class="text-lg font-bold">إدارة المستخدمين</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-right">
+<thead class="bg-surface-container-low text-on-surface-variant">
+<tr>
+<th class="px-6 py-4 font-medium">المستخدم</th>
+<th class="px-6 py-4 font-medium">النوع</th>
+<th class="px-6 py-4 font-medium">التاريخ</th>
+<th class="px-6 py-4 font-medium">الحالة</th>
+<th class="px-6 py-4 font-medium">الإجراءات</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex flex-row-reverse items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="close-up portrait of a smiling young professional man, soft natural window light, clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh3G4YeviOxGK-poDtQkXjlZTI_gPrUn5Ie0FXoS6d0HmYfQhYwAnhzK_rnalki_G65f0C886i1FFDuyDofHFpG4OvE_t7SlTuG8qO3PXc1jBq80Ute49Bn6j3Zhxmc48lFGraWXAbRI-DMvt9rhd0wJuKyffIE5KP-LSesNmaW8oAtN1Mf1yk-VEsMlgRika430kHeZdocwgKXSkfnP46PMnHQaTomHAGiQPfTIRSQe1Ibyd65r67DcyTyIB0QzhFH_60gZ78ofMx"/>
+</div>
+<div>
+<p class="font-bold">أحمد علي</p>
+<p class="text-xs text-on-surface-variant">ahmed@example.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">مزود خدمة</td>
+<td class="px-6 py-4 text-sm">١٢ مايو ٢٠٢٤</td>
+<td class="px-6 py-4">
+<span class="bg-primary-fixed/30 text-on-primary-fixed-variant px-3 py-1 rounded-full text-xs font-bold">نشط</span>
+</td>
+<td class="px-6 py-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex flex-row-reverse items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="professional corporate headshot of a middle eastern woman wearing a stylish hijab, warm soft lighting, modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmIvOHO1IWC8lV6KHXsmB0R0jhEmWfSueRMqIW4qk77PU5k9FL4Sf7DNeOnWuqjZLb605IWt_zoDK4adDgFI8gT40Ch2ta67pPTCjtO_80dEzFIOLyDV_cf4VuqL0P3tdoNuCeSjcgd8AKI08V_JoQ4uObecp_Qdnm5XeUpEmbrGo6qH0tiSFHqx-_0zkS-n_vnnPRxYJZC-5VR1SYYu4bG4bczrVrZI8pAkxov2GI0wPq3j_3lGu0frQfVNk6a-_y-vD2PUOjyRBN"/>
+</div>
+<div>
+<p class="font-bold">سارة خالد</p>
+<p class="text-xs text-on-surface-variant">sara@example.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">عميل</td>
+<td class="px-6 py-4 text-sm">١٠ مايو ٢٠٢٤</td>
+<td class="px-6 py-4">
+<span class="bg-primary-fixed/30 text-on-primary-fixed-variant px-3 py-1 rounded-full text-xs font-bold">نشط</span>
+</td>
+<td class="px-6 py-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex flex-row-reverse items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="sharp portrait of an older professional man, soft bokeh background, elegant and authoritative look" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-XWkdy3MhOLjSS0RAleOME_LEmQIuUmiVxfkx6NBjD1R004sZMeqjMy3-a_y-SsIwFMmNoljlpLavHIqQ2yUqslwY45LGnduWLOVsF9xS4cyatTv3bE4BTut9izPUcU99JBAhYsmk1GPyLV_BiodXkOFkP6LdVdnXLhvQikaZpFvCSlJcCG6YkfaIH92flHS_D-TKP1RQ07gfjcX--fHaKUTgsQMpXHkmnKzHOXSUdZhYj6Uc4tgaHBcP7luNJ0Ob1bzQEQ8ArjO3"/>
+</div>
+<div>
+<p class="font-bold">محمد عمر</p>
+<p class="text-xs text-on-surface-variant">m.omar@example.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">مزود خدمة</td>
+<td class="px-6 py-4 text-sm">٠٨ مايو ٢٠٢٤</td>
+<td class="px-6 py-4">
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full text-xs font-bold">معلق</span>
+</td>
+<td class="px-6 py-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Worker Verification Panel -->
+<div class="col-span-4 bg-surface-container-lowest rounded-xl shadow-[24px_0_24px_-12px_rgba(18,28,42,0.04)] p-6">
+<div class="flex justify-between items-center mb-6">
+<span class="bg-error/10 text-error text-xs font-bold px-2 py-1 rounded">٣ طلبات جديدة</span>
+<h3 class="text-lg font-bold">تحقق الهوية</h3>
+</div>
+<!-- Verification Card Item -->
+<div class="bg-surface-container-low rounded-xl p-4 mb-4">
+<div class="flex flex-row-reverse gap-4 mb-4">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="headshot of a young handyman worker in a blue uniform, bright outdoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN9S7xL8q6xBojT4sNKS2KAWJW-mE41tkZLLFFt2DWGju5wU9KIsGgCu2CapjgluouD6fUwluhVwK6SD8mMbq9EgxaDFGnHJEXddFiH0HveY0FcHEEa0U-YFpUH1C62YJE2rDSOPlWRJqgket6WtJJqnxPMfed55xnRQ009opHvywDgdId2qdfGS6cOE5ewT2Yrp_X_sgJdFf_LHC0G_b2Isje7JuH5ukMm2tCflOQR6fUB3XIQ70gUFdxJ44_FqPosjtyi9WvT8-W"/>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm">ياسر القحطاني</p>
+<p class="text-xs text-on-surface-variant">فني كهرباء - الرياض</p>
+</div>
+</div>
+<div class="space-y-3">
+<p class="text-xs font-bold text-on-surface-variant mb-2">وثائق الهوية</p>
+<div class="grid grid-cols-2 gap-2">
+<div class="relative group cursor-pointer overflow-hidden rounded-lg aspect-video">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="macro photo of a generic identification card with blurred personal details, high key studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfXEJDvS_2kxXE1MryK9DHhXGXQ1g5TM_9Zj-iAUb9xopAvp4kCG8781eH3b1Au8gX7TquK4DtZ30unoIhgYHOplb8v44cx2ztfDvBGygSNmCmXxHKQDoeQjjVLE_f_-jnSmkxoa6LpvCrVlyuwrD4FqXhdZwjh82G9H1Z-3UekO6kSoraKC9eD_HxyhuVO6spHIDGNTmzmn1-JAq-lcgQbAV0dKiXnuwOj8dI9cENdImpurnnTftIbR5e40IU_kXjGolcRR65VQkk"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+<div class="relative group cursor-pointer overflow-hidden rounded-lg aspect-video">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="professional trade license certificate on high quality paper, soft architectural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXUlvamlra_apwvb1NrXFOyt2-lrACLH7LsNtFPqKho4KCzQD9sh-5ZP-BzxUTx_Xnclicms8HSHDvlx4BSTUt3YzY1bXYu0lws1i118KYyk3apg20KLZ5D1RiBRap7ZsKJwMQhxKYarX9nW6qmpMvQS1Xdd8K5b9wFmbVs4hc1CG1VqwOfic5iT6OQxzc8uXA3RZcXa8uLZZZuhGNe5vSTGPFUutYff6AVFczsf3L16jERvIzajKJ4_BvYzW_KpNfzDyNgX0G9RNW"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white">visibility</span>
+</div>
+</div>
+</div>
+<div class="flex gap-2 mt-4">
+<button class="flex-1 bg-primary text-white text-xs font-bold py-2 rounded-lg hover:opacity-90">قبول</button>
+<button class="flex-1 bg-error/10 text-error text-xs font-bold py-2 rounded-lg hover:bg-error/20">رفض</button>
+</div>
+</div>
+</div>
+<button class="w-full py-2 text-primary text-sm font-bold hover:bg-primary/5 rounded-lg transition-colors">عرض جميع طلبات التحقق</button>
+</div>
+<!-- Reports & Complaints List -->
+<div class="col-span-6 bg-surface-container-lowest rounded-xl shadow-[24px_0_24px_-12px_rgba(18,28,42,0.04)] p-6">
+<div class="flex justify-between items-center mb-6">
+<button class="text-primary text-sm font-bold">عرض الكل</button>
+<h3 class="text-lg font-bold">البلاغات والشكاوى</h3>
+</div>
+<div class="space-y-4">
+<div class="flex flex-row-reverse items-start gap-4 p-4 rounded-xl border border-outline-variant/15 hover:border-primary/20 transition-all">
+<div class="w-10 h-10 rounded-full bg-error/10 flex items-center justify-center text-error shrink-0">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div class="text-right flex-1">
+<div class="flex flex-row-reverse justify-between items-center mb-1">
+<span class="text-xs text-on-surface-variant">منذ ساعتين</span>
+<h4 class="font-bold text-sm">شكوى تأخير خدمة</h4>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">العميل فهد أبلغ عن تأخير في وصول الفني لأكثر من 3 ساعات بدون إخطار مسبق.</p>
+<div class="flex flex-row-reverse gap-2 mt-3">
+<button class="text-[10px] bg-surface-container-high px-2 py-1 rounded font-bold">متابعة</button>
+<button class="text-[10px] text-on-surface-variant hover:text-primary transition-colors">تجاهل</button>
+</div>
+</div>
+</div>
+<div class="flex flex-row-reverse items-start gap-4 p-4 rounded-xl border border-outline-variant/15 hover:border-primary/20 transition-all">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">star</span>
+</div>
+<div class="text-right flex-1">
+<div class="flex flex-row-reverse justify-between items-center mb-1">
+<span class="text-xs text-on-surface-variant">أمس</span>
+<h4 class="font-bold text-sm">نزاع على السعر</h4>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">طلب مراجعة الفاتورة رقم #4322، يوجد فرق في السعر المتفق عليه والنهائي.</p>
+<div class="flex flex-row-reverse gap-2 mt-3">
+<button class="text-[10px] bg-surface-container-high px-2 py-1 rounded font-bold">متابعة</button>
+<button class="text-[10px] text-on-surface-variant hover:text-primary transition-colors">تجاهل</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Category Management -->
+<div class="col-span-6 bg-surface-container-lowest rounded-xl shadow-[24px_0_24px_-12px_rgba(18,28,42,0.04)] p-6">
+<div class="flex justify-between items-center mb-6">
+<button class="bg-primary-container/10 text-primary px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">add</span> تصنيف جديد
+                    </button>
+<h3 class="text-lg font-bold">إدارة التصنيفات</h3>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-row-reverse items-center justify-between group">
+<div class="flex flex-row-reverse items-center gap-3">
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">plumbing</span>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm">السباكة</p>
+<p class="text-[10px] text-on-surface-variant">٤٥ مزود نشط</p>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">edit</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-row-reverse items-center justify-between group">
+<div class="flex flex-row-reverse items-center gap-3">
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm">الكهرباء</p>
+<p class="text-[10px] text-on-surface-variant">٣٢ مزود نشط</p>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">edit</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-row-reverse items-center justify-between group">
+<div class="flex flex-row-reverse items-center gap-3">
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">cleaning_services</span>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm">النظافة</p>
+<p class="text-[10px] text-on-surface-variant">١٢٨ مزود نشط</p>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">edit</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-row-reverse items-center justify-between group">
+<div class="flex flex-row-reverse items-center gap-3">
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">carpenter</span>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm">النجارة</p>
+<p class="text-[10px] text-on-surface-variant">١٨ مزود نشط</p>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">edit</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="mt-12 w-full border-t border-[#bdc9c6]/15">
+<div class="flex flex-col md:flex-row-reverse justify-between items-center py-8 gap-6 w-full">
+<div class="text-lg font-bold text-[#121c2a]">المجلس الرقمي</div>
+<div class="flex flex-row-reverse gap-8 text-sm font-['IBM_Plex_Sans_Arabic']">
+<a class="text-[#3e4947] hover:text-[#005c55] transition-colors" href="#">من نحن</a>
+<a class="text-[#3e4947] hover:text-[#005c55] transition-colors" href="#">الشروط والأحكام</a>
+<a class="text-[#3e4947] hover:text-[#005c55] transition-colors" href="#">سياسة الخصوصية</a>
+<a class="text-[#3e4947] hover:text-[#005c55] transition-colors" href="#">اتصل بنا</a>
+</div>
+<div class="text-sm text-[#3e4947]">© ٢٠٢٤ المجلس الرقمي. جميع الحقوق محفوظة</div>
+</div>
+</footer>
+</main>
+</body></html>

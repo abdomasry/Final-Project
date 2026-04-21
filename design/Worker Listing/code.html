@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ethereal - Worker Listing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f8f9ff",
+                        "on-surface": "#121c2a",
+                        "on-primary-fixed-variant": "#00504a",
+                        "on-background": "#121c2a",
+                        "on-secondary-fixed": "#191c1c",
+                        "surface-bright": "#f8f9ff",
+                        "surface-dim": "#d0dbed",
+                        "secondary-container": "#dee0df",
+                        "inverse-surface": "#27313f",
+                        "surface-variant": "#d9e3f6",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#9cf2e8",
+                        "on-tertiary-container": "#9efbe9",
+                        "on-primary-fixed": "#00201d",
+                        "tertiary-fixed": "#96f3e1",
+                        "on-tertiary-fixed-variant": "#005046",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#a3faef",
+                        "tertiary": "#005c51",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#007769",
+                        "secondary": "#5c5f5e",
+                        "primary": "#005c55",
+                        "inverse-on-surface": "#eaf1ff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#e1e3e2",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#606363",
+                        "primary-container": "#0f766e",
+                        "on-tertiary-fixed": "#00201b",
+                        "tertiary-fixed-dim": "#7ad7c6",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#80d5cb",
+                        "outline": "#6e7977",
+                        "surface-tint": "#006a63",
+                        "on-surface-variant": "#3e4947",
+                        "on-secondary-fixed-variant": "#444747",
+                        "inverse-primary": "#80d5cb",
+                        "secondary-fixed-dim": "#c4c7c6",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#e6eeff",
+                        "background": "#f8f9ff",
+                        "surface-container-highest": "#d9e3f6",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-high": "#dee9fc",
+                        "outline-variant": "#bdc9c6",
+                        "on-error": "#ffffff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["IBM Plex Sans Arabic", "Be Vietnam Pro", "sans-serif"],
+                        "body": ["IBM Plex Sans Arabic", "Be Vietnam Pro", "sans-serif"],
+                        "label": ["IBM Plex Sans Arabic", "Be Vietnam Pro", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'ambient': '0 24px 24px rgba(18,28,42,0.06)',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'IBM Plex Sans Arabic', 'Be Vietnam Pro', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col antialiased">
+<!-- TopAppBar -->
+<nav class="bg-[#f8f9ff]/80 dark:bg-[#121c2a]/80 backdrop-blur-xl docked full-width top-0 sticky z-50 bg-[#eff4ff] dark:bg-[#1e293b] shadow-[0_24px_24px_rgba(18,28,42,0.06)] flex flex-row-reverse justify-between items-center w-full px-6 py-4 font-be-vietnam-pro leading-relaxed text-right">
+<div class="flex items-center gap-8 flex-row-reverse">
+<!-- Brand Logo -->
+<a class="text-2xl font-bold tracking-tight text-[#005c55] dark:text-[#9cf2e8]" href="#">
+                Ethereal
+            </a>
+<!-- Navigation Links -->
+<div class="hidden md:flex flex-row-reverse items-center gap-6">
+<a class="text-[#3e4947] dark:text-[#bdc9c6] hover:bg-[#dee9fc] dark:hover:bg-[#0f766e]/20 transition-colors active:scale-95 duration-200 ease-in-out px-3 py-2 rounded-lg" href="#">استكشاف</a>
+<a class="text-[#005c55] dark:text-[#9cf2e8] font-bold border-b-2 border-[#005c55] hover:bg-[#dee9fc] dark:hover:bg-[#0f766e]/20 transition-colors active:scale-95 duration-200 ease-in-out px-3 py-2 rounded-lg" href="#">المزودون</a>
+<a class="text-[#3e4947] dark:text-[#bdc9c6] hover:bg-[#dee9fc] dark:hover:bg-[#0f766e]/20 transition-colors active:scale-95 duration-200 ease-in-out px-3 py-2 rounded-lg" href="#">الطلبات</a>
+</div>
+</div>
+<div class="flex items-center gap-4 flex-row-reverse">
+<!-- Search Bar (On Left relative to RTL, so visual right) -->
+<div class="hidden lg:flex relative">
+<input class="bg-surface-container-low border-none rounded-xl py-2 pl-10 pr-4 text-sm text-on-surface focus:ring-2 focus:ring-primary/20 focus:outline-none w-64 transition-all" placeholder="ابحث عن مزود..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl">search</span>
+</div>
+<!-- Trailing Icons -->
+<button class="p-2 text-primary hover:bg-[#dee9fc] dark:hover:bg-[#0f766e]/20 rounded-full transition-colors active:scale-95 duration-200 ease-in-out">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-primary hover:bg-[#dee9fc] dark:hover:bg-[#0f766e]/20 rounded-full transition-colors active:scale-95 duration-200 ease-in-out">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<!-- Profile Image -->
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high ml-2 cursor-pointer border border-surface-variant hover:opacity-90 transition-opacity">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="close up portrait of young professional man smiling warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr5NqXt6WxClZk_7fmQoWbftupBkQvCc_uvJYSou5lnw06u_KhTzKtJ-SsXZK3etWINR2pKLhtlXpwPszUPwY2D0r6LcT8SINHVF8aAQTc88JwL4ZffSWVouXYoExvZvBrH8zWdPz9eYwM429FFsteSqcDkwgP1nwoHZaYNWqEu_l27BY-hs7AOSOndBzJIfsbXY99VyGEfuyuxOVyayXXnVG-U6ABqUsOsDAqtr_5801xk22jPkrIsr1qtJp0wgN3LkBzYQMdrnco"/>
+</div>
+</div>
+</nav>
+<div class="flex flex-1 relative overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:block bg-[#eff4ff] dark:bg-[#121c2a] h-screen w-64 fixed right-0 top-0 pt-20 no-border tonal-layering flat no-shadows font-be-vietnam-pro text-right z-40 overflow-y-auto">
+<div class="flex flex-col gap-2 p-4 h-full">
+<div class="mb-6 px-4">
+<h2 class="text-lg font-black text-[#005c55] mb-1">التصفية</h2>
+<p class="text-sm text-on-surface-variant">خصّص بحثك</p>
+</div>
+<!-- Main Tabs -->
+<div class="flex flex-col gap-1 mb-8">
+<button class="bg-[#005c55] text-white rounded-xl shadow-lg flex flex-row-reverse items-center gap-3 px-4 py-3 hover:translate-x-[-4px] transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-medium">جميع الحرفيين</span>
+</button>
+<button class="text-[#3e4947] dark:text-[#bdc9c6] flex flex-row-reverse items-center gap-3 px-4 py-3 hover:bg-[#dee9fc] dark:hover:bg-[#1e293b] rounded-xl hover:translate-x-[-4px] transition-transform">
+<span class="material-symbols-outlined">star</span>
+<span class="font-medium">الأعلى تقييماً</span>
+</button>
+<button class="text-[#3e4947] dark:text-[#bdc9c6] flex flex-row-reverse items-center gap-3 px-4 py-3 hover:bg-[#dee9fc] dark:hover:bg-[#1e293b] rounded-xl hover:translate-x-[-4px] transition-transform">
+<span class="material-symbols-outlined">verified</span>
+<span class="font-medium">موثق</span>
+</button>
+<button class="text-[#3e4947] dark:text-[#bdc9c6] flex flex-row-reverse items-center gap-3 px-4 py-3 hover:bg-[#dee9fc] dark:hover:bg-[#1e293b] rounded-xl hover:translate-x-[-4px] transition-transform">
+<span class="material-symbols-outlined">distance</span>
+<span class="font-medium">الأقرب إليك</span>
+</button>
+</div>
+<!-- Filters Section -->
+<div class="flex-1 overflow-y-auto pr-2 pl-4 pb-20 custom-scrollbar space-y-6">
+<!-- Sort -->
+<div class="space-y-3">
+<label class="text-sm font-semibold text-on-surface">ترتيب حسب</label>
+<select class="w-full bg-surface-container-lowest border-none rounded-lg py-2.5 px-3 text-sm text-on-surface-variant focus:ring-2 focus:ring-primary/20 appearance-none shadow-sm cursor-pointer">
+<option>التقييم (الأعلى أولاً)</option>
+<option>السعر (الأقل إلى الأعلى)</option>
+<option>الأكثر شعبية</option>
+</select>
+</div>
+<!-- Category Filter -->
+<div class="space-y-3">
+<label class="text-sm font-semibold text-on-surface">الفئة</label>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="form-checkbox text-primary rounded border-outline-variant focus:ring-primary/20 bg-surface-container-lowest" type="checkbox"/>
+<span class="text-sm text-on-surface-variant group-hover:text-primary transition-colors">نجارة</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-checkbox text-primary rounded border-outline-variant focus:ring-primary/20 bg-surface-container-lowest" type="checkbox"/>
+<span class="text-sm text-on-surface-variant group-hover:text-primary transition-colors">سباكة</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-checkbox text-primary rounded border-outline-variant focus:ring-primary/20 bg-surface-container-lowest" type="checkbox"/>
+<span class="text-sm text-on-surface-variant group-hover:text-primary transition-colors">كهرباء</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Footer CTA & Tabs -->
+<div class="mt-auto pt-4 border-t border-outline-variant/10 space-y-4">
+<button class="w-full bg-primary-container text-on-primary-container font-semibold py-3 rounded-xl hover:bg-primary hover:text-white transition-colors duration-300 shadow-sm">
+                        تطبيق الفلاتر
+                    </button>
+<div class="flex justify-around">
+<button class="text-[#3e4947] dark:text-[#bdc9c6] flex flex-col items-center gap-1 p-2 hover:bg-[#dee9fc] dark:hover:bg-[#1e293b] rounded-xl hover:translate-x-[-4px] transition-transform">
+<span class="material-symbols-outlined text-lg">help</span>
+<span class="text-xs">المساعدة</span>
+</button>
+<button class="text-[#3e4947] dark:text-[#bdc9c6] flex flex-col items-center gap-1 p-2 hover:bg-[#dee9fc] dark:hover:bg-[#1e293b] rounded-xl hover:translate-x-[-4px] transition-transform">
+<span class="material-symbols-outlined text-lg">settings</span>
+<span class="text-xs">الإعدادات</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 mr-0 md:mr-64 p-6 lg:p-10 transition-all duration-300">
+<!-- Page Header -->
+<div class="mb-10 max-w-7xl mx-auto">
+<h1 class="text-3xl lg:text-4xl font-headline font-bold text-on-surface mb-3 tracking-tight">الحرفيون المتاحون</h1>
+<p class="text-lg text-on-surface-variant">اكتشف أفضل المزودين لخدماتك المنزلية، جاهزون للعمل فوراً.</p>
+</div>
+<!-- Worker Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-[1.5rem] p-5 shadow-ambient hover:shadow-[0_32px_40px_rgba(18,28,42,0.08)] transition-all duration-300 flex flex-col group border border-transparent hover:border-outline-variant/15 relative overflow-hidden">
+<!-- Status Badge -->
+<div class="absolute top-5 right-5 z-10 bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 backdrop-blur-md bg-opacity-90">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                        موثق
+                    </div>
+<div class="flex items-start gap-5 mb-5">
+<div class="w-24 h-24 rounded-[1rem] overflow-hidden shrink-0 shadow-sm relative">
+<img alt="Worker Portrait" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" data-alt="professional portrait of middle eastern male worker smiling brightly natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA81IYes2EHWwrds7pkH-_ywVdjWO4C2a5ewZZNAvS-RuuQZTN46tfZYmnwtnfHWUUHM5yQMhywuSXZTE6s14F8-ASznoQ257ECtboXuPSURVbnyWhZl1Gi0Xc_6aV4uW2C6HvqKaZx_t9ze0_eMkG-MShEMc8336E9TZ6U4MO9qoVQHJN8OoeUdUeDGH4s91-RRpHEzKx_ov0BunNBUYyfFKvH86_UIsC33AeBfRHc1VCh0TkgPc0yeVfrQZEHhknVGHQOxR4eXQS5"/>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-headline font-bold text-on-surface mb-1">أحمد محمود</h3>
+<p class="text-primary font-medium text-sm mb-2">نجارة مخصصة</p>
+<div class="flex items-center gap-1.5 text-sm">
+<span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.9</span>
+<span class="text-on-surface-variant">(128 تقييم)</span>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+<div>
+<span class="text-xs text-on-surface-variant block mb-0.5">تبدأ من</span>
+<span class="text-lg font-bold text-on-surface">250 ج.م</span>
+</div>
+<button class="bg-primary hover:bg-primary-container text-white px-6 py-2.5 rounded-xl font-semibold transition-colors duration-200 text-sm">
+                            احجز الآن
+                        </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-[1.5rem] p-5 shadow-ambient hover:shadow-[0_32px_40px_rgba(18,28,42,0.08)] transition-all duration-300 flex flex-col group border border-transparent hover:border-outline-variant/15 relative overflow-hidden">
+<div class="absolute top-5 right-5 z-10 bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 backdrop-blur-md bg-opacity-90">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                        متاح الآن
+                    </div>
+<div class="flex items-start gap-5 mb-5">
+<div class="w-24 h-24 rounded-[1rem] overflow-hidden shrink-0 shadow-sm relative">
+<img alt="Worker Portrait" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" data-alt="professional portrait of middle eastern young man looking confident soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQisg0zVkGntlmcp9_op6tQpo6q1zC298NASR_XLuupJGyk0yttYxMUo9Aoisx_8KKss1pZYWCwLtqvKgtfT4EdD2X3rYSFIbDVDLNur_4skPCDqPyj-4R_dik0z55oqdnhLm4rlnhxg5ePMrQql7P5u8NpEQ-04HrTBcthwn_kOQebC6pa0k16War-Zw1pQvCFTTRLY52lsURQ2tZG2dZe-CxEzaIv-8GPAaRvAgAmWsxOXdF-t-YPSDaRYXkPUOQArUtsGset8K9"/>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-headline font-bold text-on-surface mb-1">طارق حسن</h3>
+<p class="text-primary font-medium text-sm mb-2">تأسيس سباكة</p>
+<div class="flex items-center gap-1.5 text-sm">
+<span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.7</span>
+<span class="text-on-surface-variant">(85 تقييم)</span>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+<div>
+<span class="text-xs text-on-surface-variant block mb-0.5">تبدأ من</span>
+<span class="text-lg font-bold text-on-surface">150 ج.م</span>
+</div>
+<button class="bg-secondary-container hover:bg-surface-variant text-on-secondary-container px-6 py-2.5 rounded-xl font-semibold transition-colors duration-200 text-sm">
+                            عرض التفاصيل
+                        </button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-[1.5rem] p-5 shadow-ambient hover:shadow-[0_32px_40px_rgba(18,28,42,0.08)] transition-all duration-300 flex flex-col group border border-transparent hover:border-outline-variant/15 relative overflow-hidden">
+<div class="absolute top-5 right-5 z-10 bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 backdrop-blur-md bg-opacity-90">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                        موثق
+                    </div>
+<div class="flex items-start gap-5 mb-5">
+<div class="w-24 h-24 rounded-[1rem] overflow-hidden shrink-0 shadow-sm relative">
+<img alt="Worker Portrait" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" data-alt="professional portrait of older experienced craftsman middle eastern outdoors warm light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBskVC24S2R-imaIORgvthsIGTwXqGoPOqxTp9DZ_wLRhVklp1Q0_cMtriy3Pg0hvKMaZjKRhnJXGLBkNDZhVrBP_rc6ZgVs4opKpW7tynUVBOYpBmjyre4iaGAsL9R6FQUeisBF42YhGcHY8sx_Qgndz0XR6YDrT3HQf0x-6oW-OK5osJqyr17L-Op_50uBzPdg0GtvomCxhWsFMcNbgdok4-UwG8Z4_0ovwFWsD0pGduf5uZTHVga3WEZs4V1E-Ly1JYhgFsuaRJk"/>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-headline font-bold text-on-surface mb-1">محمد عبدالهادي</h3>
+<p class="text-primary font-medium text-sm mb-2">كهرباء منازل</p>
+<div class="flex items-center gap-1.5 text-sm">
+<span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">5.0</span>
+<span class="text-on-surface-variant">(312 تقييم)</span>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+<div>
+<span class="text-xs text-on-surface-variant block mb-0.5">تبدأ من</span>
+<span class="text-lg font-bold text-on-surface">300 ج.م</span>
+</div>
+<button class="bg-primary hover:bg-primary-container text-white px-6 py-2.5 rounded-xl font-semibold transition-colors duration-200 text-sm">
+                            احجز الآن
+                        </button>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="mt-12 text-center pb-10">
+<button class="bg-surface-container-low text-primary hover:bg-surface-variant px-8 py-3 rounded-xl font-bold transition-colors shadow-sm border border-outline-variant/20 inline-flex items-center gap-2">
+                    عرض المزيد
+                    <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;family=Be+Vietnam+Pro:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#dee9fc",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-container": "#e6eeff",
+              "on-secondary-fixed-variant": "#444747",
+              "on-tertiary-fixed-variant": "#005046",
+              "error": "#ba1a1a",
+              "primary-container": "#0f766e",
+              "tertiary": "#005c51",
+              "surface-variant": "#d9e3f6",
+              "surface-dim": "#d0dbed",
+              "surface-bright": "#f8f9ff",
+              "tertiary-fixed-dim": "#7ad7c6",
+              "secondary": "#5c5f5e",
+              "background": "#f8f9ff",
+              "surface-container-highest": "#d9e3f6",
+              "primary": "#005c55",
+              "on-background": "#121c2a",
+              "on-primary-container": "#a3faef",
+              "primary-fixed-dim": "#80d5cb",
+              "on-surface-variant": "#3e4947",
+              "on-primary": "#ffffff",
+              "surface-container-low": "#eff4ff",
+              "on-error-container": "#93000a",
+              "inverse-primary": "#80d5cb",
+              "tertiary-container": "#007769",
+              "surface-container-lowest": "#ffffff",
+              "surface": "#f8f9ff",
+              "tertiary-fixed": "#96f3e1",
+              "on-tertiary": "#ffffff",
+              "outline": "#6e7977",
+              "on-primary-fixed-variant": "#00504a",
+              "on-secondary-container": "#606363",
+              "primary-fixed": "#9cf2e8",
+              "on-primary-fixed": "#00201d",
+              "outline-variant": "#bdc9c6",
+              "on-surface": "#121c2a",
+              "error-container": "#ffdad6",
+              "on-secondary-fixed": "#191c1c",
+              "surface-tint": "#006a63",
+              "on-error": "#ffffff",
+              "secondary-fixed-dim": "#c4c7c6",
+              "inverse-surface": "#27313f",
+              "secondary-fixed": "#e1e3e2",
+              "on-tertiary-fixed": "#00201b",
+              "secondary-container": "#dee0df",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#9efbe9"
+            },
+            fontFamily: {
+              "headline": ["IBM Plex Sans Arabic", "Be Vietnam Pro"],
+              "body": ["IBM Plex Sans Arabic", "Be Vietnam Pro"],
+              "label": ["IBM Plex Sans Arabic", "Be Vietnam Pro"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'Be Vietnam Pro', sans-serif;
+            background-color: #f8f9ff;
+            color: #121c2a;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(248, 249, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 right-0 z-50 glass-nav border-none">
+<div class="max-w-7xl mx-auto flex flex-row-reverse justify-between items-center px-6 py-4">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-bold text-primary">المجلس الرقمي</span>
+</div>
+<div class="hidden md:flex flex-row-reverse items-center gap-8">
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">الرئيسية</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">الخدمات</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">المزودون</a>
+</div>
+<div class="flex items-center gap-4 flex-row-reverse">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-low border-none rounded-full pr-10 pl-4 py-2 focus:ring-2 focus:ring-primary/20 text-sm w-64" placeholder="بحث عن مزود خدمة..." type="text"/>
+</div>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+<img alt="صورة الملف الشخصي للمستخدم" data-alt="professional portrait of a middle-aged man with a neat beard wearing a smart casual shirt, clean studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYwE1sjvni1KuBqYp5HUv8jP_P6qKCip5ZQFXUdKiwCNA6FmMuK2moHCdT8bocNYcYy1Xb3PMreqeJ2a0GGSZrYKXXGzSM9RoEwn8fBQFwQvAsLzJtYS_iUXwT5A2ctiRNuS_SfuZ-ZeSSLMGUTwHXbO2XFlGlB-hNHvU0CnSjKXJGCHQ7TrCaukT9r5YjKQ6-esiViKJ_9mpv2K6Gc6DAY5xdy3slwM3tLHOAcH5N3DXc2J0W4vD4nwWizy2Kbe5aRcpeYWwJhcoy"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-12 px-6 max-w-7xl mx-auto">
+<!-- Hero Header Section -->
+<header class="mb-12 text-right">
+<h1 class="text-4xl md:text-5xl font-black text-on-surface mb-4 tracking-tight">نخبة مزودي الخدمات</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl ml-auto">اكتشف أفضل المحترفين الموثوقين المتاحين لمساعدتك في مشاريعك القادمة.</p>
+</header>
+<div class="flex flex-col lg:flex-row-reverse gap-8">
+<!-- Sidebar Filters -->
+<aside class="w-full lg:w-80 flex flex-col gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[24px_0_24px_-12px_rgba(18,28,42,0.04)]">
+<div class="flex items-center justify-between mb-6 flex-row-reverse">
+<h2 class="text-lg font-bold">تصفية النتائج</h2>
+<button class="text-primary text-sm font-medium">مسح الكل</button>
+</div>
+<!-- Price Range -->
+<div class="mb-8">
+<label class="block text-sm font-bold mb-4 text-right">نطاق السعر (ساعة)</label>
+<div class="flex items-center gap-3 flex-row-reverse">
+<input class="w-full bg-surface-container-low border-none rounded-lg p-2 text-right text-sm" placeholder="الأدنى" type="number"/>
+<span class="text-outline-variant">-</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-2 text-right text-sm" placeholder="الأعلى" type="number"/>
+</div>
+</div>
+<!-- Rating Filter -->
+<div class="mb-8">
+<label class="block text-sm font-bold mb-4 text-right">التقييم</label>
+<div class="space-y-3">
+<label class="flex items-center gap-3 flex-row-reverse cursor-pointer group">
+<input class="rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="flex items-center gap-1 text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>4.5 فما فوق</span>
+</span>
+</label>
+<label class="flex items-center gap-3 flex-row-reverse cursor-pointer group">
+<input class="rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="flex items-center gap-1 text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>4.0 فما فوق</span>
+</span>
+</label>
+</div>
+</div>
+<!-- Availability -->
+<div class="mb-4">
+<label class="block text-sm font-bold mb-4 text-right">التوفر</label>
+<div class="space-y-3">
+<label class="flex items-center gap-3 flex-row-reverse cursor-pointer group">
+<input class="text-primary focus:ring-primary" name="availability" type="radio"/>
+<span class="text-on-surface-variant group-hover:text-primary transition-colors">متاح الآن</span>
+</label>
+<label class="flex items-center gap-3 flex-row-reverse cursor-pointer group">
+<input class="text-primary focus:ring-primary" name="availability" type="radio"/>
+<span class="text-on-surface-variant group-hover:text-primary transition-colors">متاح غداً</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Promo Card -->
+<div class="bg-primary-container p-6 rounded-xl text-on-primary-container relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-bold text-lg mb-2">كن مزوداً للخدمة</h3>
+<p class="text-sm opacity-90 mb-4 leading-relaxed">انضم إلى آلاف المحترفين وابدأ في كسب الدخل اليوم.</p>
+<button class="bg-primary text-white px-6 py-2 rounded-full text-sm font-bold hover:scale-105 transition-transform">سجل الآن</button>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -left-4 text-9xl opacity-10">work_history</span>
+</div>
+</aside>
+<!-- Worker Listing Grid -->
+<section class="flex-1">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
+<!-- Worker Card 1 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden hover:shadow-xl transition-all group border border-transparent hover:border-primary/10">
+<div class="relative h-48 bg-surface-container">
+<img alt="خلفية العمل" class="w-full h-full object-cover" data-alt="clean modern workspace with a wooden desk, laptop, and soft natural light from a nearby window" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDciTZcVtauFQ7ZWwXSjIX25Chy15gHGz1Xg8xdj9BYwDrQIam_snS7bVl1TfDWRZR6ZL1KVCDeWISGVk7K0Mo9mo9M9icsIPolTdED9bFvTsKQRoQwdHPtmwkZv4Q1hUyTGdCD9CQ9kD7bqjjA9gz_vkFRJEhlH7TaLA0i17Y2hyBhgwRcTVT0UgwIhiWv2KuXKFIuxlq_LgIc1sVhJGDGIV8SzVPwWJMBSO4OYdZumac7Kl2eCrdP3NqwRtCQuHdRjYdnbiSt4A11"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">4.9 (124)</span>
+</div>
+<div class="absolute -bottom-6 right-6">
+<img alt="صورة المزود" class="w-16 h-16 rounded-2xl border-4 border-white object-cover shadow-lg" data-alt="close-up portrait of a professional woman with a warm smile, wearing a professional navy blue suit, bright office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUeD5TEK_WZ-z-EjBDrA2xNbp3aLxfI5Z9HzxS5Vv2cv4Cb6HmUKJNYySwuhL1-ePP5F6eHGknapzJu4ai74bLxUMysRvlVk1EgELwcjclf-f_2GQ6XUIDkyIQqyCtEpVyXtj2qwAJxZCmAA1dxIlkw-k2OKnavihxCI75RGY8k7UcposfV5c9g_h_reC2Wa3ZlYolK0D3750taBuKrg8k8fcRbZyGLCgkH9GwaxqUMzSfDXy19WEeTqZmL30z0I2DpjAE5w7fUwRF"/>
+</div>
+</div>
+<div class="p-6 pt-10 text-right">
+<div class="flex justify-between items-start flex-row-reverse mb-2">
+<div>
+<h3 class="font-bold text-xl group-hover:text-primary transition-colors">م. أحمد كمال</h3>
+<p class="text-sm text-on-surface-variant">مصمم داخلي ومعماري</p>
+</div>
+<div class="text-left">
+<p class="text-xs text-on-surface-variant mb-1">يبدأ من</p>
+<p class="text-lg font-black text-primary">150 ر.س</p>
+</div>
+</div>
+<div class="flex items-center gap-4 flex-row-reverse my-6">
+<div class="flex items-center gap-1 text-xs text-green-600 font-medium bg-green-50 px-2 py-1 rounded">
+<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+<span>متاح الآن</span>
+</div>
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>الرياض، السعودية</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-primary text-on-primary py-3 rounded-xl font-bold hover:opacity-90 active:scale-95 transition-all">احجز الآن</button>
+<button class="bg-secondary-container text-on-secondary-container py-3 rounded-xl font-bold hover:bg-surface-container-high active:scale-95 transition-all">أرسل طلباً</button>
+</div>
+</div>
+</article>
+<!-- Worker Card 2 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden hover:shadow-xl transition-all group border border-transparent hover:border-primary/10">
+<div class="relative h-48 bg-surface-container">
+<img alt="خلفية العمل" class="w-full h-full object-cover" data-alt="modern office environment with sleek glass partitions, computers, and minimalist design aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGAQhyr1caxn4RB7DiXefMfpZrHhuh1AgoT66zCgIyIhNySOIiR6w9iSM2fS5m6BQ28RJ7ih3uFd9juGIoeJflY6DKG9UEG4AkWSNjYz4xPtM7Rtp3f78SV3Vwwodv2_g_TRVgR-e_QOMCWIFPQ4G6Sdgp0lDMuJKZz4hr5DNcebpzflmCFw-LCSMwluFIN8W0PjwjMU3rKWAbsv7Xvv1WPlyjwcdRygv9qMcxtuYR_QTK-U6AbkT3DTWZ1nfvOrbqtytqLUjRYtmH"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">4.7 (89)</span>
+</div>
+<div class="absolute -bottom-6 right-6">
+<img alt="صورة المزود" class="w-16 h-16 rounded-2xl border-4 border-white object-cover shadow-lg" data-alt="headshot of a young professional man with glasses, wearing a white shirt, soft natural bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8v11pinKJJg6Tm42PnDZ5IM3oLZymWniA_adzbm2PcxWDLJ0qeL9NBMRC-Mkf4MWXBayCVAvs0QPzN0ITXTzFzlee_fwjt0wa92Bco8bUDaRGP8TROedRW4Pf88ojLYJEB2VZP6VrgOISwvLfjygbKErhcGJJaKkJPimXJBkuW0zL4LKXWAU00tsnSyZUpQWNvmDyn7vL5DcIXVlqH3odSXO2FmoTZmd8vqMqzTElZ8r1Jn59k8gibUMW0zeJ2qI-7bFTIslexpl1"/>
+</div>
+</div>
+<div class="p-6 pt-10 text-right">
+<div class="flex justify-between items-start flex-row-reverse mb-2">
+<div>
+<h3 class="font-bold text-xl group-hover:text-primary transition-colors">سارة العلي</h3>
+<p class="text-sm text-on-surface-variant">مطورة واجهات أمامية</p>
+</div>
+<div class="text-left">
+<p class="text-xs text-on-surface-variant mb-1">يبدأ من</p>
+<p class="text-lg font-black text-primary">200 ر.س</p>
+</div>
+</div>
+<div class="flex items-center gap-4 flex-row-reverse my-6">
+<div class="flex items-center gap-1 text-xs text-orange-600 font-medium bg-orange-50 px-2 py-1 rounded">
+<span class="w-2 h-2 bg-orange-500 rounded-full"></span>
+<span>متاح غداً</span>
+</div>
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>جدة، السعودية</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-primary text-on-primary py-3 rounded-xl font-bold hover:opacity-90 active:scale-95 transition-all">احجز الآن</button>
+<button class="bg-secondary-container text-on-secondary-container py-3 rounded-xl font-bold hover:bg-surface-container-high active:scale-95 transition-all">أرسل طلباً</button>
+</div>
+</div>
+</article>
+<!-- Worker Card 3 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden hover:shadow-xl transition-all group border border-transparent hover:border-primary/10">
+<div class="relative h-48 bg-surface-container">
+<img alt="خلفية العمل" class="w-full h-full object-cover" data-alt="colorful graphic design studio with digital tablets, pantone color swatches, and creative artwork on walls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHc8TnJwucpj2raUZ3cpeX_cn10XL0a9Tt5hGsbryVMX5h9r5NKNVciOBRzvnXMJt1jr0raXaS-2Y3ypaVwwqk9R7TM_KOgkWg2DC6Vi_9XCtXcSUID0umYMvZtkL32-cAcmFwCoc7hBvpXBCxYL3IqD400crg08QC94m89QAQB11O9GrY7JpSxfOaLvUMxYWLYT5DOouDOpSGpRxKSN5o8TulRQXeCp3sAMfKe-O99RVJSVaqRmQd0XHc0hRm_Qf5PdRHvxGXxtML"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">5.0 (56)</span>
+</div>
+<div class="absolute -bottom-6 right-6">
+<img alt="صورة المزود" class="w-16 h-16 rounded-2xl border-4 border-white object-cover shadow-lg" data-alt="professional male portrait with a friendly expression, wearing a grey polo shirt, outdoor blurred garden background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3jHw23Xc8Q3820i5IILRn6iCfsaNjHlxCemtmRv_hBLRW_15c6cbJrvjJmuatGhQ2kw9XdCfUsflTltHxgzIOh9DpMnbQSoymSu_rBqP9vfNrvEX0EAfCNj2wxnt_CuYoz5MBa6IbHbKi-0FCCst4MfsPpFixM4mzKZYvtH40A2U1DyfJUPlbYX2L2e19Zesp4lmSZIgNNrtWdAY9pzccI5do_iMJSgJyV2ILCnMqTAVjVBW0Mxmg0ubk3DX2t7zccz-JQz5Eo4mU"/>
+</div>
+</div>
+<div class="p-6 pt-10 text-right">
+<div class="flex justify-between items-start flex-row-reverse mb-2">
+<div>
+<h3 class="font-bold text-xl group-hover:text-primary transition-colors">خالد المنصور</h3>
+<p class="text-sm text-on-surface-variant">خبير تسويق رقمي</p>
+</div>
+<div class="text-left">
+<p class="text-xs text-on-surface-variant mb-1">يبدأ من</p>
+<p class="text-lg font-black text-primary">120 ر.س</p>
+</div>
+</div>
+<div class="flex items-center gap-4 flex-row-reverse my-6">
+<div class="flex items-center gap-1 text-xs text-green-600 font-medium bg-green-50 px-2 py-1 rounded">
+<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+<span>متاح الآن</span>
+</div>
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>دبي، الإمارات</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-primary text-on-primary py-3 rounded-xl font-bold hover:opacity-90 active:scale-95 transition-all">احجز الآن</button>
+<button class="bg-secondary-container text-on-secondary-container py-3 rounded-xl font-bold hover:bg-surface-container-high active:scale-95 transition-all">أرسل طلباً</button>
+</div>
+</div>
+</article>
+<!-- Worker Card 4 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden hover:shadow-xl transition-all group border border-transparent hover:border-primary/10">
+<div class="relative h-48 bg-surface-container">
+<img alt="خلفية العمل" class="w-full h-full object-cover" data-alt="organized creative workspace with multiple monitors displaying code and design tools, warm desk lamp lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGMGrqPsf0vWlJsY1OBIZNUIYgPZK_sWkYudn-FqshRkAm4M4rKt9cbLJ2c3RDyMC_TWh-Zc5CVhdDAEKFbDLNvf3Ki9IgnF1o1c0oW24SPp-BjIvXDmLGZi8HQidbeoOEoJeGJOdUIOv8C7E-NF8pvUWN2LP5xOHMijjxZz9LaubOv8qLV5W8g4eCm7BPbP5QW8gEA9kP8Ikp1cXgNaArDsHI2B3KPCULBN4X9-ksjufw6NX86VxFR08_u6tNyTKgcNuPgdg9rRqq"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">4.8 (210)</span>
+</div>
+<div class="absolute -bottom-6 right-6">
+<img alt="صورة المزود" class="w-16 h-16 rounded-2xl border-4 border-white object-cover shadow-lg" data-alt="professional woman in a smart hijab and elegant blazer, smiling confidently, soft light in a modern library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuN3LySVBR5iY2_wmEDnOKaIMSU5Fgc2I_WP5zdMvXenspLTmjD46j4kMXX-jXUqnWhKS8JWUAwGsnkyLn4X_fxn7HXMsFT2GblSB6pFGnGznTQoU4WY7RATpcqgnqPy79SK_SfMfg2qberelbqnMO9e1FhdYWpRXkoiiE83ipDdgQiZBbU4XP-WQAEs7oFRlbWXkbFfux-e9eBLfktCdTI4ouAxQko7e8SxNJcp4ANm9C71SveH_dT3difPcT_uFJaUlU49HVbc7v"/>
+</div>
+</div>
+<div class="p-6 pt-10 text-right">
+<div class="flex justify-between items-start flex-row-reverse mb-2">
+<div>
+<h3 class="font-bold text-xl group-hover:text-primary transition-colors">ليلى حسن</h3>
+<p class="text-sm text-on-surface-variant">كاتبة محتوى إبداعي</p>
+</div>
+<div class="text-left">
+<p class="text-xs text-on-surface-variant mb-1">يبدأ من</p>
+<p class="text-lg font-black text-primary">80 ر.س</p>
+</div>
+</div>
+<div class="flex items-center gap-4 flex-row-reverse my-6">
+<div class="flex items-center gap-1 text-xs text-green-600 font-medium bg-green-50 px-2 py-1 rounded">
+<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+<span>متاح الآن</span>
+</div>
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>المنامة، البحرين</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-primary text-on-primary py-3 rounded-xl font-bold hover:opacity-90 active:scale-95 transition-all">احجز الآن</button>
+<button class="bg-secondary-container text-on-secondary-container py-3 rounded-xl font-bold hover:bg-surface-container-high active:scale-95 transition-all">أرسل طلباً</button>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center items-center gap-2 flex-row-reverse">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-low text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-colors">3</button>
+<span class="px-2 text-on-surface-variant">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-low text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto border-t border-outline-variant/15 bg-surface-container-low">
+<div class="flex flex-col md:flex-row-reverse justify-between items-center px-8 py-12 gap-6 w-full max-w-7xl mx-auto">
+<div class="flex flex-col items-center md:items-end gap-2">
+<span class="text-lg font-bold text-on-surface">المجلس الرقمي</span>
+<p class="text-sm text-on-surface-variant text-right max-w-xs">منصة الخدمات الأولى في العالم العربي للوصول إلى أفضل المحترفين بكل سهولة وأمان.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 flex-row-reverse">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium" href="#">من نحن</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium" href="#">الشروط والأحكام</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium" href="#">سياسة الخصوصية</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium" href="#">اتصل بنا</a>
+</div>
+<div class="text-on-surface-variant text-sm font-medium">
+                © ٢٠٢٤ المجلس الرقمي. جميع الحقوق محفوظة
+            </div>
+</div>
+</footer>
+</body></html>

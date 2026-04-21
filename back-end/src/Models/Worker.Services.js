@@ -10,11 +10,17 @@ const workerServicesSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
     },
+    name: {
+      type: String,
+      required: [true, "Service name is required"],
+      trim: true,
+    },
     description: String,
+    images: [{ type: String }], // URLs of images showcasing the service
     price: Number,
     typeofService: {
       type: String,
-      enum: ["hourly", "fixed"],
+      enum: ["hourly", "fixed", "range"],
       default: "fixed",
     },
     time: Date,
@@ -23,7 +29,13 @@ const workerServicesSchema = new mongoose.Schema(
       max: { type: Number },
       custom: { type: String },
     },
-    active: Boolean,
+    active: { type: Boolean, default: false },
+    approvalStatus: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
+    rejectionReason: String,
     teamNumber: Number,
   },
   { timestamps: true },

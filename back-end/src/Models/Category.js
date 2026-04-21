@@ -6,6 +6,7 @@ const categorySchema = new mongoose.Schema(
       required: true,
     },
     description: String,
+    image: String, // URL to category image (placeholder for now, upload system later)
     isActive: {
       type: Boolean,
       default: true,

@@ -80,6 +80,17 @@ const workerProfileSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "LiveChat",
     }],
+    // ─── Wallet ──────────────────────────────────────────────────
+    // In-app wallet credited when the worker marks an order as completed.
+    // `walletBalance` is what the worker can currently withdraw.
+    // `lifetimeEarnings` is the cumulative all-time credit (never decreases)
+    // — used for the "Total Earnings" stat card.
+    // `lifetimeWithdrawn` will track how much has moved out once the
+    // withdrawal flow is real. For now it stays at 0 because withdrawals are
+    // a UI-only placeholder.
+    walletBalance: { type: Number, default: 0 },
+    lifetimeEarnings: { type: Number, default: 0 },
+    lifetimeWithdrawn: { type: Number, default: 0 },
   },
   { timestamps: true },
 );

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#dee9fc",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-container": "#e6eeff",
+              "on-secondary-fixed-variant": "#444747",
+              "on-tertiary-fixed-variant": "#005046",
+              "error": "#ba1a1a",
+              "primary-container": "#0f766e",
+              "tertiary": "#005c51",
+              "surface-variant": "#d9e3f6",
+              "surface-dim": "#d0dbed",
+              "surface-bright": "#f8f9ff",
+              "tertiary-fixed-dim": "#7ad7c6",
+              "secondary": "#5c5f5e",
+              "background": "#f8f9ff",
+              "surface-container-highest": "#d9e3f6",
+              "primary": "#005c55",
+              "on-background": "#121c2a",
+              "on-primary-container": "#a3faef",
+              "primary-fixed-dim": "#80d5cb",
+              "on-surface-variant": "#3e4947",
+              "on-primary": "#ffffff",
+              "surface-container-low": "#eff4ff",
+              "on-error-container": "#93000a",
+              "inverse-primary": "#80d5cb",
+              "tertiary-container": "#007769",
+              "surface-container-lowest": "#ffffff",
+              "surface": "#f8f9ff",
+              "tertiary-fixed": "#96f3e1",
+              "on-tertiary": "#ffffff",
+              "outline": "#6e7977",
+              "on-primary-fixed-variant": "#00504a",
+              "on-secondary-container": "#606363",
+              "primary-fixed": "#9cf2e8",
+              "on-primary-fixed": "#00201d",
+              "outline-variant": "#bdc9c6",
+              "on-surface": "#121c2a",
+              "error-container": "#ffdad6",
+              "on-secondary-fixed": "#191c1c",
+              "surface-tint": "#006a63",
+              "on-error": "#ffffff",
+              "secondary-fixed-dim": "#c4c7c6",
+              "inverse-surface": "#27313f",
+              "secondary-fixed": "#e1e3e2",
+              "on-tertiary-fixed": "#00201b",
+              "secondary-container": "#dee0df",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#9efbe9"
+            },
+            fontFamily: {
+              "headline": ["IBM Plex Sans Arabic", "Be Vietnam Pro"],
+              "body": ["IBM Plex Sans Arabic", "Be Vietnam Pro"],
+              "label": ["IBM Plex Sans Arabic", "Be Vietnam Pro"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'Be Vietnam Pro', sans-serif;
+            background-color: #f8f9ff;
+            color: #121c2a;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(248, 249, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .bento-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .bento-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 24px 24px -12px rgba(18, 28, 42, 0.06);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 right-0 z-50 glass-nav border-none">
+<div class="flex flex-row-reverse justify-between items-center w-full px-6 py-4 max-w-full">
+<div class="flex items-center gap-8 flex-row-reverse">
+<span class="text-2xl font-bold text-[#005c55] dark:text-[#9cf2e8]">المجلس الرقمي</span>
+<div class="hidden md:flex flex-row-reverse gap-6">
+<a class="text-[#005c55] dark:text-[#9cf2e8] font-bold border-b-2 border-[#005c55] pb-1" href="#">الرئيسية</a>
+<a class="text-[#121c2a] dark:text-slate-300 hover:text-[#005c55] transition-colors" href="#">الخدمات</a>
+<a class="text-[#121c2a] dark:text-slate-300 hover:text-[#005c55] transition-colors" href="#">المزودون</a>
+</div>
+</div>
+<div class="flex items-center gap-4 flex-row-reverse">
+<div class="relative hidden sm:block">
+<input class="bg-surface-container-low border-none rounded-full py-2 pr-10 pl-4 w-64 focus:ring-2 focus:ring-primary/20 text-right" placeholder="بحث عن خدمة..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2 text-on-surface-variant">search</span>
+</div>
+<div class="flex gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">translate</span>
+</button>
+</div>
+<img alt="صورة الملف الشخصي للمستخدم" class="w-10 h-10 rounded-full border-2 border-primary-container/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAvLwkflrzedy1UR9nQPhfWFOb82ogTN6hJRgbbv8UliT30aeOy-oGyvnykKK6e0OT3uWqAYRwOMRtvYzIKceOaHMADGrXDrpzsfQpL7hexwTIZ1Z4ih4H06dsCVGWQncn2jz5DmjpnnuzZTULL5duDh28N9TBlUn2cUueUPKbRk0gdS5w1DFool7yk2xXGBLiFLRJMUntddbcw5KAdoioIwyP6up9K0FLzKCd2yBSoEBM4NVuGp9sxZfSVaXyVpLLT8GiZq2hiUl6"/>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-12 px-6 max-w-7xl mx-auto">
+<!-- Hero Search Section -->
+<section class="relative rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-primary to-primary-container p-8 md:p-16 text-right mb-16">
+<div class="relative z-10 max-w-2xl">
+<h1 class="text-white text-4xl md:text-6xl font-bold mb-6 leading-tight">كل ما تحتاجه لمنزلك<br/>في مكان واحد.</h1>
+<p class="text-primary-fixed mb-10 text-lg opacity-90">احجز أفضل الخبراء المعتمدين بضغطة زر واحدة. خدمات موثوقة، جودة مضمونة.</p>
+<div class="flex flex-col md:flex-row-reverse gap-4 bg-white/10 backdrop-blur-md p-2 rounded-3xl border border-white/10">
+<div class="flex-1 relative">
+<input class="w-full bg-white rounded-2xl border-none py-4 pr-12 pl-4 text-right focus:ring-0" placeholder="ما هي الخدمة التي تبحث عنها؟" type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-4 text-primary">search</span>
+</div>
+<button class="bg-primary-fixed text-on-primary-fixed px-8 py-4 rounded-2xl font-bold hover:bg-white transition-colors">بحث الآن</button>
+</div>
+<div class="mt-8 flex flex-row-reverse flex-wrap gap-3">
+<span class="text-white/70 text-sm py-1">الأكثر بحثاً:</span>
+<a class="bg-white/10 hover:bg-white/20 text-white text-xs px-4 py-1.5 rounded-full border border-white/5 transition-colors" href="#">تنظيف منازل</a>
+<a class="bg-white/10 hover:bg-white/20 text-white text-xs px-4 py-1.5 rounded-full border border-white/5 transition-colors" href="#">صيانة مكيفات</a>
+<a class="bg-white/10 hover:bg-white/20 text-white text-xs px-4 py-1.5 rounded-full border border-white/5 transition-colors" href="#">سباكة</a>
+</div>
+</div>
+<!-- Decorative image element -->
+<div class="absolute top-0 left-0 h-full w-1/2 hidden lg:block opacity-40 mix-blend-overlay">
+<img class="h-full w-full object-cover" data-alt="modern luxury home interior with soft sunlight and teal accents in the decor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkRLBYn5rsn6YddQ14792VwHpjIyHqVLjQ9sJAh0Yi5V9okFxUSH2eTmEiwLyIeEi96nfpHyvhpkGvAiNdsZpFLqe4hNimjvIXTa4cFICo1k9aOi3o-AGXMIy7DZtVqroNUqVewx9gBbXdxPHn84hj40RB690jnJO7koiPDz6oi0Rpcx7ktXCllyx93mgOct-zFyLXRfL86zA5Rb9TK1JjaxmeViRbRfLGAGRBsQ40yxVAOQLrbni94MdKye_YEfe9xjgii9oeTaJj"/>
+</div>
+</section>
+<!-- Service Categories Bento Grid -->
+<section class="mb-20">
+<div class="flex justify-between items-end mb-8 flex-row-reverse">
+<div class="text-right">
+<h2 class="text-2xl md:text-3xl font-bold text-on-surface">اكتشف خدماتنا</h2>
+<p class="text-on-surface-variant mt-2">اختر الفئة التي تناسب احتياجاتك اليوم</p>
+</div>
+<a class="text-primary font-semibold flex items-center gap-1 hover:underline" href="#">
+<span>عرض الكل</span>
+<span class="material-symbols-outlined text-sm">arrow_back_ios</span>
+</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+<!-- Category 1 -->
+<div class="bento-item bg-surface-container-low p-6 rounded-[2rem] text-center flex flex-col items-center gap-4 cursor-pointer">
+<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined scale-150">cleaning_services</span>
+</div>
+<span class="font-bold text-on-surface">التنظيف</span>
+</div>
+<!-- Category 2 -->
+<div class="bento-item bg-surface-container-low p-6 rounded-[2rem] text-center flex flex-col items-center gap-4 cursor-pointer">
+<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined scale-150">home_repair_service</span>
+</div>
+<span class="font-bold text-on-surface">الإصلاحات</span>
+</div>
+<!-- Category 3 -->
+<div class="bento-item bg-surface-container-low p-6 rounded-[2rem] text-center flex flex-col items-center gap-4 cursor-pointer">
+<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined scale-150">air_freshener</span>
+</div>
+<span class="font-bold text-on-surface">الصيانة</span>
+</div>
+<!-- Category 4 -->
+<div class="bento-item bg-surface-container-low p-6 rounded-[2rem] text-center flex flex-col items-center gap-4 cursor-pointer">
+<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined scale-150">electric_bolt</span>
+</div>
+<span class="font-bold text-on-surface">الكهرباء</span>
+</div>
+<!-- Category 5 -->
+<div class="bento-item bg-surface-container-low p-6 rounded-[2rem] text-center flex flex-col items-center gap-4 cursor-pointer">
+<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined scale-150">plumbing</span>
+</div>
+<span class="font-bold text-on-surface">السباكة</span>
+</div>
+<!-- Category 6 -->
+<div class="bento-item bg-surface-container-low p-6 rounded-[2rem] text-center flex flex-col items-center gap-4 cursor-pointer">
+<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined scale-150">format_paint</span>
+</div>
+<span class="font-bold text-on-surface">الدهانات</span>
+</div>
+</div>
+</section>
+<!-- Featured Providers Section -->
+<section class="mb-20">
+<div class="flex justify-between items-end mb-8 flex-row-reverse">
+<div class="text-right">
+<h2 class="text-2xl md:text-3xl font-bold text-on-surface">خبراء متميزون</h2>
+<p class="text-on-surface-variant mt-2">الأعلى تقييماً في منطقتك</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Worker Card 1 -->
+<div class="bg-surface-container-lowest rounded-[2.5rem] p-6 shadow-[24px_0_24px_-12px_rgba(18,28,42,0.06)] hover:shadow-xl transition-all border border-outline-variant/10">
+<div class="flex items-start gap-4 flex-row-reverse mb-6">
+<img alt="صورة الخبير" class="w-16 h-16 rounded-2xl object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTJODxusWAkrvWFryUYapDM-sCG_lA8F67jG0ycQ0QFeEnHYHTnaNGtJVsHkIWZRTndqxth2tuDIAyO4OimO2ozwVd26Ef2Mk3OUt6t2nlL1oT-cIpexXeHLfyVAXd9bpCAqVOE--2YAiuk5XYtU_hfFHjJJJmdMQtX6XsG8e-o6nJ8ZZTWCjoxYWc-IEPYZTPgjNFi7DBO0GQ1GcJoaLqUwtUVpv_X-0Zim8xDDOFeCDVNLXlblhNKmfYsIwKIhX2uOctGP1yYIUB"/>
+<div class="text-right flex-1">
+<h3 class="font-bold text-lg text-on-surface">أحمد منصور</h3>
+<p class="text-primary text-sm font-medium">خبير كهرباء • خبرة ٨ سنوات</p>
+</div>
+<div class="bg-primary/5 px-2 py-1 rounded-lg flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-primary">4.9</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 text-right leading-relaxed">متخصص في تركيبات الإضاءة الحديثة وصيانة اللوحات الكهربائية للمنازل والفلل.</p>
+<div class="flex justify-between items-center flex-row-reverse">
+<span class="text-on-surface font-bold">ابتداءً من <span class="text-primary text-xl">١٥٠</span> ريال</span>
+<button class="bg-primary text-white px-6 py-2 rounded-xl text-sm font-bold hover:opacity-90 transition-opacity">حجز الآن</button>
+</div>
+</div>
+<!-- Worker Card 2 -->
+<div class="bg-surface-container-lowest rounded-[2.5rem] p-6 shadow-[24px_0_24px_-12px_rgba(18,28,42,0.06)] hover:shadow-xl transition-all border border-outline-variant/10">
+<div class="flex items-start gap-4 flex-row-reverse mb-6">
+<img alt="صورة الخبير" class="w-16 h-16 rounded-2xl object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJifIu7xux-q01fE52mJd_eLj3u7TCm2K2E5ZC3lFaKSCTZ5j2NRshJ5gRjHbIia02t-5_GnBSD_z_S_5UU_kPV10BERLrRCyYl34TGpJuouCDHSeWFxRckcHdmsP3DD06WR4UIS67HkXh4PIOykfpPFg_JNsKLFiUG8mb1EAfZ-HCI02RVUQvmv3wqWeSUtutAESboSna4Riv71icVqj58OODbfFbV_CV1yVZo-BjYFa5IkYQoOAov97ARllTOtWO_Fsbpou9GX_z"/>
+<div class="text-right flex-1">
+<h3 class="font-bold text-lg text-on-surface">سارة العتيبي</h3>
+<p class="text-primary text-sm font-medium">تصميم ديكور • خبرة ٥ سنوات</p>
+</div>
+<div class="bg-primary/5 px-2 py-1 rounded-lg flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-primary">4.8</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 text-right leading-relaxed">نحول مساحتك إلى تحفة فنية. تخصص في استغلال المساحات والتصاميم المودرن.</p>
+<div class="flex justify-between items-center flex-row-reverse">
+<span class="text-on-surface font-bold">ابتداءً من <span class="text-primary text-xl">٣٠٠</span> ريال</span>
+<button class="bg-primary text-white px-6 py-2 rounded-xl text-sm font-bold hover:opacity-90 transition-opacity">حجز الآن</button>
+</div>
+</div>
+<!-- Worker Card 3 -->
+<div class="bg-surface-container-lowest rounded-[2.5rem] p-6 shadow-[24px_0_24px_-12px_rgba(18,28,42,0.06)] hover:shadow-xl transition-all border border-outline-variant/10">
+<div class="flex items-start gap-4 flex-row-reverse mb-6">
+<img alt="صورة الخبير" class="w-16 h-16 rounded-2xl object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGm2rf6YJxR1wlLO8_eyvWdxP-zAfv8f_5fVLTco0kcvuHC2FbjrarNii1JDzKFej4z4hSO-Qr2jpcYLC0s_eqvuTGgfz44jYCQdgVKMheEoeXi_zytl3pJFdkZ8SgpXJRpkynVlStNIPLw3HOWuOhpK53cpl1QcLI2PmziltMhlwlGTLUQnhRGHuX1NL1kXW2gBHCuiVElmRHt2c_nMTSUmGO1C44ZRu5V9419R5E1R2i5OtadqDZx5G94rbxaqi-WBMEPO01C6ea"/>
+<div class="text-right flex-1">
+<h3 class="font-bold text-lg text-on-surface">خالد فهد</h3>
+<p class="text-primary text-sm font-medium">صيانة تكييف • خبرة ١٠ سنوات</p>
+</div>
+<div class="bg-primary/5 px-2 py-1 rounded-lg flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-primary">5.0</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm mb-6 text-right leading-relaxed">تنظيف وصيانة شاملة لجميع أنواع المكيفات لضمان أفضل أداء واستهلاك أقل للكهرباء.</p>
+<div class="flex justify-between items-center flex-row-reverse">
+<span class="text-on-surface font-bold">ابتداءً من <span class="text-primary text-xl">٢٠٠</span> ريال</span>
+<button class="bg-primary text-white px-6 py-2 rounded-xl text-sm font-bold hover:opacity-90 transition-opacity">حجز الآن</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Promotional Banner Asymmetric Layout -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-surface-container-low rounded-[3rem] p-8 md:p-0 overflow-hidden">
+<div class="p-8 md:p-16 text-right">
+<span class="bg-primary-fixed text-on-primary-fixed px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 inline-block">عرض خاص</span>
+<h2 class="text-3xl md:text-5xl font-bold text-on-surface mb-6 leading-tight">وفر ٣٠٪ على أول<br/>خدمة تنظيف لك</h2>
+<p class="text-on-surface-variant mb-10 text-lg">استخدم الكود: <span class="text-primary font-bold border-2 border-dashed border-primary px-3 py-1 rounded-lg mr-2">MAJLIS30</span></p>
+<button class="bg-primary text-white px-10 py-4 rounded-2xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-transform">استفد من العرض</button>
+</div>
+<div class="h-[400px] w-full relative">
+<img class="absolute inset-0 w-full h-full object-cover rounded-3xl md:rounded-none" data-alt="professional cleaning service person in uniform working in a bright airy modern house with cleaning supplies" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdq7O2z5fELNNyB2ssuHZzTLxCcz4YP53uOulYr6HgLtMepMI5qOc8rytsjHUNplx0M9jRL7nDAAJp7wp0_R8vdMgqdIJHW-i04jwIV4Rfhv-D2H0F_rcMj8AjRAZzXht3ZSMm9uyJL-d0VMBymvWz9pLHyT__Yb5h4fzgtSgNyiAQ-uL8fgrnA8PcEp6dkel2mneBMUV3G4R2po1eU2sdTonUnBDDWUdfKmIzIEaLPYZJvPLUjghYVtqAr4ISeaEeMqjKya9kjsZb"/>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto border-t border-[#bdc9c6]/15 bg-[#eff4ff] dark:bg-slate-900">
+<div class="flex flex-col md:flex-row-reverse justify-between items-center px-8 py-12 gap-6 w-full max-w-7xl mx-auto">
+<div class="flex flex-col items-center md:items-end gap-2">
+<span class="text-lg font-bold text-[#121c2a] dark:text-white">المجلس الرقمي</span>
+<p class="text-sm font-['IBM_Plex_Sans_Arabic'] text-right leading-6 text-[#3e4947] dark:text-slate-400">منصتكم الأولى لخدمات الصيانة والمنزل المتكاملة</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 flex-row-reverse">
+<a class="text-sm font-['IBM_Plex_Sans_Arabic'] text-[#3e4947] dark:text-slate-400 hover:text-[#005c55] transition-colors" href="#">من نحن</a>
+<a class="text-sm font-['IBM_Plex_Sans_Arabic'] text-[#3e4947] dark:text-slate-400 hover:text-[#005c55] transition-colors" href="#">الشروط والأحكام</a>
+<a class="text-sm font-['IBM_Plex_Sans_Arabic'] text-[#3e4947] dark:text-slate-400 hover:text-[#005c55] transition-colors" href="#">سياسة الخصوصية</a>
+<a class="text-sm font-['IBM_Plex_Sans_Arabic'] text-[#3e4947] dark:text-slate-400 hover:text-[#005c55] transition-colors" href="#">اتصل بنا</a>
+</div>
+<div class="text-sm font-['IBM_Plex_Sans_Arabic'] text-[#3e4947] dark:text-slate-400">
+                © ٢٠٢٤ المجلس الرقمي. جميع الحقوق محفوظة
+            </div>
+</div>
+</footer>
+<!-- Mobile Bottom Navigation Shell -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-[0_-8px_24px_-12px_rgba(18,28,42,0.1)] px-6 py-3 flex justify-between items-center z-50">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-[10px] font-bold">الرئيسية</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">category</span>
+<span class="text-[10px]">الفئات</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-[10px]">طلباتي</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px]">حسابي</span>
+</button>
+</div>
+</body></html>
