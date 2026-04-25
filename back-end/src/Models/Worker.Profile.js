@@ -11,6 +11,16 @@ const workerProfileSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
     },
+    serviceCategories: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category",
+      },
+    ],
+    title: {
+      type: String,
+      trim: true,
+    },
     priceRange: {
       min: Number,
       max: Number,
@@ -31,6 +41,30 @@ const workerProfileSchema = new mongoose.Schema(
         completedAt: Date,
       },
     ],
+    packages: [
+      {
+        title: String,
+        description: String,
+        price: Number,
+        features: [String],
+      },
+    ],
+    license: {
+      name: String,
+      number: String,
+      fileUrl: String,
+      status: {
+        type: String,
+        enum: ["not_submitted", "pending", "approved", "rejected"],
+        default: "not_submitted",
+      },
+      rejectionReason: {
+        type: String,
+        default: "",
+      },
+      submittedAt: Date,
+      reviewedAt: Date,
+    },
     documents: [
       {
         type: {

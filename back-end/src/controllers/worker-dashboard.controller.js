@@ -6,6 +6,76 @@ const User = require("../Models/User.Model");
 const Notification = require("../Models/Notification");
 const WalletTransaction = require("../Models/Wallet.Transaction");
 
+const populateWorkerProfile = (query, { publicServices = false } = {}) =>
+  query
+    .populate("userId", "firstName lastName profileImage bio createdAt")
+    .populate("Category", "name image")
+    .populate("serviceCategories", "name image")
+    .populate({
+      path: "services",
+      ...(publicServices ? { match: { active: true, approvalStatus: "approved" } } : {}),
+      select: "name description images price typeofService priceRange categoryId active approvalStatus rejectionReason",
+      populate: { path: "categoryId", select: "name" },
+    });
+
+const normalizeStringArray = (value) => {
+  if (!Array.isArray(value)) return [];
+  return [...new Set(value.map(item => String(item || "").trim()).filter(Boolean))];
+};
+
+const normalizePackages = (packages) => {
+  if (!Array.isArray(packages)) return [];
+  return packages
+    .map((pkg) => {
+      const features = Array.isArray(pkg?.features)
+        ? normalizeStringArray(pkg.features)
+        : String(pkg?.features || "")
+            .split(/\r?\n|,/)
+            .map(item => item.trim())
+            .filter(Boolean);
+
+      return {
+        title: String(pkg?.title || "").trim(),
+        description: String(pkg?.description || "").trim(),
+        price: Number(pkg?.price) || 0,
+        features,
+      };
+    })
+    .filter(pkg => pkg.title || pkg.description || pkg.price > 0 || pkg.features.length > 0);
+};
+
+const normalizePortfolio = (portfolio) => {
+  if (!Array.isArray(portfolio)) return [];
+  return portfolio
+    .map((item) => ({
+      title: String(item?.title || "").trim(),
+      description: String(item?.description || "").trim(),
+      completedAt: item?.completedAt ? new Date(item.completedAt) : undefined,
+      images: Array.isArray(item?.images)
+        ? item.images.map(img => String(img || "").trim()).filter(Boolean)
+        : [],
+    }))
+    .filter(item => item.title || item.description || item.images.length > 0);
+};
+
+const normalizeCategoryIds = (ids) => {
+  if (!Array.isArray(ids)) return [];
+  return [...new Set(ids.filter(id => mongoose.isValidObjectId(id)).map(String))];
+};
+
+const syncLicenseDocument = (profile) => {
+  const otherDocs = (profile.documents || []).filter(doc => doc.type !== "license");
+  if (profile.license?.fileUrl) {
+    otherDocs.push({
+      type: "license",
+      name: profile.license.name || "الرخصة المهنية",
+      fileUrl: profile.license.fileUrl,
+      status: profile.license.status === "not_submitted" ? "pending" : profile.license.status,
+    });
+  }
+  profile.documents = otherDocs;
+};
+
 // ============================================================
 // GET /api/worker/dashboard
 // ============================================================
@@ -45,23 +115,15 @@ const getDashboard = async (req, res) => {
     const userId = req.user._id;
 
     // Step 1: Find or auto-create the worker profile
-    let profile = await WorkerProfile.findOne({ userId })
-      .populate("userId", "firstName lastName profileImage bio location createdAt")
-      .populate("Category", "name image")
-      .populate({
-        path: "services",
+    let profile = await populateWorkerProfile(WorkerProfile.findOne({ userId }));
         // No `match: { active: true }` — show ALL services to the worker,
         // including inactive and pending ones, so they can see approval status
-        select: "description price typeofService priceRange categoryId active approvalStatus rejectionReason",
-        populate: { path: "categoryId", select: "name" },
-      });
+      ;
 
     if (!profile) {
       profile = await WorkerProfile.create({ userId });
       // Re-populate after creation so the response has the same shape
-      profile = await WorkerProfile.findById(profile._id)
-        .populate("userId", "firstName lastName profileImage bio location createdAt")
-        .populate("Category", "name image");
+      profile = await populateWorkerProfile(WorkerProfile.findById(profile._id));
     }
 
     // Step 2: Count orders by status — all queries run in parallel
@@ -108,19 +170,135 @@ const getDashboard = async (req, res) => {
     res.json({
       profile,
       stats: {
-        orders: {
-          pending: pendingCount,
-          accepted: acceptedCount,
-          inProgress: inProgressCount,
-          completed: completedCount,
-          total: pendingCount + acceptedCount + inProgressCount + completedCount,
-        },
+        pendingOrders: pendingCount,
+        acceptedOrders: acceptedCount,
+        inProgressOrders: inProgressCount,
+        completedOrders: completedCount,
+        totalOrders: pendingCount + acceptedCount + inProgressCount + completedCount,
         totalEarnings,
       },
     });
   } catch (error) {
     console.error("getDashboard error:", error);
     res.status(500).json({ message: "Server error fetching dashboard" });
+  }
+};
+
+// ============================================================
+// PUT /api/worker/profile
+// ============================================================
+// Updates worker-facing profile fields shown on the public /worker/:id page.
+const updateProfile = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const {
+      firstName,
+      lastName,
+      profileImage,
+      bio,
+      title,
+      location,
+      primaryCategoryId,
+      serviceCategoryIds,
+      skills,
+      startingPrice,
+      packages,
+      portfolio,
+      license,
+    } = req.body || {};
+
+    let profile = await WorkerProfile.findOne({ userId });
+    if (!profile) {
+      profile = await WorkerProfile.create({ userId });
+    }
+
+    const userUpdates = {};
+    if (firstName !== undefined) userUpdates.firstName = String(firstName || "").trim();
+    if (lastName !== undefined) userUpdates.lastName = String(lastName || "").trim();
+    if (profileImage !== undefined) userUpdates.profileImage = String(profileImage || "").trim();
+    if (bio !== undefined) userUpdates.bio = String(bio || "").trim();
+
+    if (Object.keys(userUpdates).length > 0) {
+      await User.findByIdAndUpdate(userId, userUpdates, {
+        new: true,
+        runValidators: true,
+      });
+    }
+
+    if (title !== undefined) profile.title = String(title || "").trim();
+    if (location !== undefined) profile.location = String(location || "").trim();
+    if (Array.isArray(skills)) profile.skills = normalizeStringArray(skills);
+
+    const categoryIds = normalizeCategoryIds(serviceCategoryIds);
+    if (Array.isArray(serviceCategoryIds)) {
+      profile.serviceCategories = categoryIds;
+      profile.Category = categoryIds[0] || undefined;
+    }
+    if (primaryCategoryId !== undefined && mongoose.isValidObjectId(primaryCategoryId)) {
+      profile.Category = primaryCategoryId;
+    }
+
+    if (startingPrice !== undefined) {
+      const nextRange = profile.priceRange?.toObject ? profile.priceRange.toObject() : (profile.priceRange || {});
+      profile.priceRange = {
+        ...nextRange,
+        min: Number(startingPrice) || 0,
+      };
+    }
+
+    if (Array.isArray(packages)) profile.packages = normalizePackages(packages);
+    if (Array.isArray(portfolio)) profile.portfolio = normalizePortfolio(portfolio);
+
+    let shouldNotifyAdmins = false;
+    if (license && typeof license === "object") {
+      const nextLicense = {
+        name: String(license.name || "").trim(),
+        number: String(license.number || "").trim(),
+        fileUrl: String(license.fileUrl || "").trim(),
+      };
+      const prevLicense = profile.license?.toObject ? profile.license.toObject() : (profile.license || {});
+      const licenseChanged =
+        nextLicense.name !== String(prevLicense.name || "") ||
+        nextLicense.number !== String(prevLicense.number || "") ||
+        nextLicense.fileUrl !== String(prevLicense.fileUrl || "");
+
+      if (licenseChanged && (nextLicense.name || nextLicense.number || nextLicense.fileUrl)) {
+        profile.license = {
+          ...prevLicense,
+          ...nextLicense,
+          status: "pending",
+          rejectionReason: "",
+          submittedAt: new Date(),
+          reviewedAt: undefined,
+        };
+        syncLicenseDocument(profile);
+        shouldNotifyAdmins = true;
+      }
+    }
+
+    await profile.save();
+
+    if (shouldNotifyAdmins) {
+      const admins = await User.find({ role: "admin" }).select("_id");
+      if (admins.length > 0) {
+        const workerName = `${req.user.firstName || ""} ${req.user.lastName || ""}`.trim() || "مزود خدمة";
+        await Notification.insertMany(
+          admins.map(admin => ({
+            userId: admin._id,
+            title: "رخصة مهنية بانتظار المراجعة",
+            message: `قام ${workerName} بإرسال أو تحديث الرخصة المهنية الخاصة به.`,
+            type: "info",
+            link: "/admin",
+          })),
+        );
+      }
+    }
+
+    const populatedProfile = await populateWorkerProfile(WorkerProfile.findById(profile._id));
+    res.json({ profile: populatedProfile });
+  } catch (error) {
+    console.error("updateProfile error:", error);
+    res.status(500).json({ message: "Server error updating worker profile" });
   }
 };
 
@@ -226,6 +404,13 @@ const addService = async (req, res) => {
       $push: { services: service._id },
     });
 
+    if (categoryId && mongoose.isValidObjectId(categoryId)) {
+      await WorkerProfile.findByIdAndUpdate(profile._id, {
+        $addToSet: { serviceCategories: categoryId },
+        ...(profile.Category ? {} : { Category: categoryId }),
+      });
+    }
+
     // Step 5: Notify all admins that a new service needs their review.
     // We fire-and-forget this so the response isn't delayed by notification creation.
     // If notification creation fails, the service is still created successfully.
@@ -326,6 +511,13 @@ const updateService = async (req, res) => {
 
     if (!service) {
       return res.status(404).json({ message: "Service not found or not yours" });
+    }
+
+    if (categoryId && mongoose.isValidObjectId(categoryId)) {
+      await WorkerProfile.findByIdAndUpdate(profile._id, {
+        $addToSet: { serviceCategories: categoryId },
+        ...(profile.Category ? {} : { Category: categoryId }),
+      });
     }
 
     // Step 5: If the service was resubmitted for review (rejected → pending),
@@ -510,6 +702,7 @@ const getWallet = async (req, res) => {
 
 module.exports = {
   getDashboard,
+  updateProfile,
   getMyServices,
   addService,
   updateService,

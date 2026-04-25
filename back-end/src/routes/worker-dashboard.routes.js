@@ -4,6 +4,7 @@ const authMiddleware = require("../middleware/auth.middleware");
 const workerOnly = require("../middleware/worker.middleware");
 const {
   getDashboard,
+  updateProfile,
   getMyServices,
   addService,
   updateService,
@@ -34,6 +35,7 @@ const {
 
 // Dashboard overview — profile + stats + earnings
 router.get("/dashboard", authMiddleware, workerOnly, getDashboard);
+router.put("/profile", authMiddleware, workerOnly, updateProfile);
 
 // Service management (CRUD)
 router.get("/services", authMiddleware, workerOnly, getMyServices);
