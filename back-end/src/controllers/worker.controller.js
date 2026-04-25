@@ -1,6 +1,8 @@
+const mongoose = require("mongoose");
 const WorkerProfile = require("../Models/Worker.Profile");
 const WorkerServices = require("../Models/Worker.Services");
 const Review = require("../Models/Review");
+const ServiceRequest = require("../Models/Service.Request");
 
 // getWorkers — Returns a paginated, filtered, sorted list of workers
 //
@@ -146,6 +148,7 @@ const getWorkers = async (req, res) => {
     let workers = await WorkerProfile.find(filter)
       .populate("userId", "firstName lastName profileImage")
       .populate("Category", "name image")
+      .populate("serviceCategories", "name image")
       .populate({
         path: "services",
         // Build the populate match from whatever filters are active.
@@ -153,6 +156,7 @@ const getWorkers = async (req, res) => {
         // comma-separated list) and/or service-name search when those are present.
         match: {
           active: true,
+          approvalStatus: "approved",
           ...(category && (() => {
             const ids = String(category).split(",").map(s => s.trim()).filter(Boolean);
             return ids.length > 1 ? { categoryId: { $in: ids } } : { categoryId: ids[0] };
@@ -212,12 +216,17 @@ const getWorkers = async (req, res) => {
 // ============================================================
 const getWorkerById = async (req, res) => {
   try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(404).json({ message: "Worker not found" });
+    }
+
     const workerProfile = await WorkerProfile.findById(req.params.id)
-      .populate("userId", "firstName lastName profileImage bio location createdAt")
+      .populate("userId", "firstName lastName profileImage bio createdAt")
       .populate("Category", "name image")
+      .populate("serviceCategories", "name image")
       .populate({
         path: "services",
-        match: { active: true },
+        match: { active: true, approvalStatus: "approved" },
         select: "name description images price typeofService priceRange categoryId",
         populate: { path: "categoryId", select: "name" },
       });
@@ -226,7 +235,46 @@ const getWorkerById = async (req, res) => {
       return res.status(404).json({ message: "Worker not found" });
     }
 
-    res.json({ worker: workerProfile });
+    const orderStats = await ServiceRequest.aggregate([
+      {
+        $match: {
+          workerId: new mongoose.Types.ObjectId(workerProfile.userId?._id || workerProfile.userId),
+        },
+      },
+      {
+        $group: {
+          _id: "$status",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const counts = orderStats.reduce((acc, row) => {
+      acc[row._id] = row.count;
+      return acc;
+    }, {});
+
+    const servicePrices = (workerProfile.services || []).flatMap((service) => {
+      if (service.typeofService === "range" && service.priceRange?.min) return [service.priceRange.min];
+      if (typeof service.price === "number") return [service.price];
+      return [];
+    });
+
+    const completedOrders = counts.completed || 0;
+    const historicalOrders = completedOrders + (counts.cancelled || 0) + (counts.rejected || 0);
+    const startingPrice =
+      workerProfile.priceRange?.min ||
+      (servicePrices.length > 0 ? Math.min(...servicePrices) : 0);
+
+    const worker = workerProfile.toObject();
+    worker.publicStats = {
+      completedOrders,
+      historicalOrders,
+      successRate: historicalOrders > 0 ? Math.round((completedOrders / historicalOrders) * 100) : 0,
+      startingPrice,
+    };
+
+    res.json({ worker });
   } catch (error) {
     console.error("getWorkerById error:", error);
     res.status(500).json({ message: "Server error fetching worker profile" });
