@@ -7,6 +7,13 @@ const ServiceRequest = require("../Models/Service.Request");
 const Category = require("../Models/Category");
 const Notification = require("../Models/Notification");
 
+const pendingVerificationFilter = {
+  $or: [
+    { verificationStatus: "pending" },
+    { "license.status": "pending" },
+  ],
+};
+
 // ============================================================
 // GET /api/admin/stats
 // ============================================================
@@ -200,14 +207,21 @@ const getVerificationRequests = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 5;
 
-    const total = await WorkerProfile.countDocuments({ verificationStatus: "pending" });
+    const total = await WorkerProfile.countDocuments(pendingVerificationFilter);
 
-    const requests = await WorkerProfile.find({ verificationStatus: "pending" })
+    const rawRequests = await WorkerProfile.find(pendingVerificationFilter)
       .populate("userId", "firstName lastName profileImage email phone")
       .populate("Category", "name")
+      .populate("serviceCategories", "name")
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit);
+
+    const requests = rawRequests.map((request) => {
+      const item = request.toObject();
+      item.requestType = request.verificationStatus === "pending" ? "profile" : "license";
+      return item;
+    });
 
     res.json({
       requests,
@@ -231,21 +245,57 @@ const getVerificationRequests = async (req, res) => {
 // :id is the WorkerProfile _id.
 const handleVerification = async (req, res) => {
   try {
-    const { action } = req.body;
+    const { action, target = "profile" } = req.body;
 
     if (!["approved", "rejected"].includes(action)) {
       return res.status(400).json({ message: "Invalid action. Use 'approved' or 'rejected'" });
     }
 
-    const request = await WorkerProfile.findByIdAndUpdate(
-      req.params.id,
-      { verificationStatus: action },
-      { new: true }
-    ).populate("userId", "firstName lastName profileImage email phone");
+    const request = await WorkerProfile.findById(req.params.id).populate("userId", "firstName lastName profileImage email phone");
 
     if (!request) {
       return res.status(404).json({ message: "Verification request not found" });
     }
+
+    if (target === "license") {
+      if (!request.license || request.license.status !== "pending") {
+        return res.status(400).json({ message: "No pending license request found" });
+      }
+
+      request.license.status = action;
+      request.license.reviewedAt = new Date();
+      request.license.rejectionReason = action === "rejected" ? "تم رفض الرخصة من قبل الإدارة" : "";
+      request.documents = (request.documents || []).map((doc) =>
+        doc.type === "license" ? { ...doc.toObject(), status: action } : doc
+      );
+    } else {
+      request.verificationStatus = action;
+      request.documents = (request.documents || []).map((doc) =>
+        doc.status === "pending" ? { ...doc.toObject(), status: action } : doc
+      );
+      if (request.license?.status === "pending") {
+        request.license.status = action;
+        request.license.reviewedAt = new Date();
+        request.license.rejectionReason = action === "rejected" ? "تم رفض الرخصة من قبل الإدارة" : "";
+      }
+    }
+
+    await request.save();
+
+    await Notification.create({
+      userId: request.userId._id,
+      title: target === "license" ? "مراجعة الرخصة المهنية" : "مراجعة ملف التحقق",
+      message:
+        target === "license"
+          ? action === "approved"
+            ? "تمت الموافقة على الرخصة المهنية الخاصة بك."
+            : "تم رفض الرخصة المهنية الخاصة بك. يرجى مراجعة البيانات وإعادة الإرسال."
+          : action === "approved"
+            ? "تمت الموافقة على ملف التحقق الخاص بك."
+            : "تم رفض ملف التحقق الخاص بك. يرجى مراجعة البيانات وإعادة الإرسال.",
+      type: action === "approved" ? "success" : "warning",
+      link: "/dashboard",
+    });
 
     res.json({ request });
   } catch (error) {
