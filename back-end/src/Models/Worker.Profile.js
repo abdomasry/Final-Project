@@ -125,6 +125,32 @@ const workerProfileSchema = new mongoose.Schema(
     walletBalance: { type: Number, default: 0 },
     lifetimeEarnings: { type: Number, default: 0 },
     lifetimeWithdrawn: { type: Number, default: 0 },
+    // ─── Rank system ─────────────────────────────────────────────
+    // Server-managed. Set automatically by the order-completion hook
+    // (see order.controller.js). Clients must not write these.
+    rank: {
+      type: String,
+      enum: ["bronze", "silver", "gold", "platinum", "diamond"],
+      default: "bronze",
+    },
+    completedOrdersCount: {
+      type: Number,
+      default: 0,
+    },
+    // ─── Working hours ───────────────────────────────────────────
+    // Replaces the old `availability` array on the public profile UI.
+    // `availability` is kept untouched in case we repurpose it later.
+    workingHours: [
+      {
+        day: {
+          type: String,
+          enum: ["sat", "sun", "mon", "tue", "wed", "thu", "fri"],
+        },
+        from: String, // "HH:MM" 24-hour format, e.g. "09:00"
+        to: String,
+        enabled: { type: Boolean, default: true },
+      },
+    ],
   },
   { timestamps: true },
 );
