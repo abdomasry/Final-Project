@@ -15,6 +15,7 @@ const Coupon = require("../Models/Coupon");
 const WorkerProfile = require("../Models/Worker.Profile");
 const WalletTransaction = require("../Models/Wallet.Transaction");
 const { validateCouponInternal } = require("./coupon.controller");
+const { computeRank } = require("../lib/rank");
 
 // Helper: emit notification:new over Socket.IO to a specific user's room.
 // `io` lives on the Express app (attached in index.js via app.set('io', io)).
@@ -290,6 +291,35 @@ const updateOrderStatusByWorker = async (req, res) => {
         // completed, the wallet credit can be reconciled by an admin if
         // something went wrong here.
         console.error("wallet credit error:", walletErr);
+      }
+    }
+
+    // ─── Rank recompute on completion ────────────────────────────
+    // Atomically increment the worker's completed-orders counter
+    // and recompute their rank if it changed. Independent of the
+    // wallet credit so a wallet failure doesn't block the rank
+    // update (and vice versa). Idempotency is guarded by the
+    // state-machine check above — an already-completed order can't
+    // transition to completed again.
+    if (status === "completed") {
+      try {
+        const profile = await WorkerProfile.findOneAndUpdate(
+          { userId: req.user._id },
+          { $inc: { completedOrdersCount: 1 } },
+          { new: true },
+        );
+        if (profile) {
+          const next = computeRank(profile.completedOrdersCount);
+          if (profile.rank !== next) {
+            profile.rank = next;
+            await profile.save();
+          }
+        }
+      } catch (rankErr) {
+        // Log but don't fail the status change — same rationale as the
+        // wallet credit above. Rank can be reconciled by re-running the
+        // backfill script if anything goes wrong here.
+        console.error("rank recompute error:", rankErr);
       }
     }
 
