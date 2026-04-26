@@ -140,8 +140,11 @@ const workerProfileSchema = new mongoose.Schema(
     // ─── Working hours ───────────────────────────────────────────
     // Replaces the old `availability` array on the public profile UI.
     // `availability` is kept untouched in case we repurpose it later.
+    // _id: false — Mongoose otherwise gives each subdoc an ObjectId
+    // the UI never needs and would have to filter out on round-trips.
     workingHours: [
       {
+        _id: false,
         day: {
           type: String,
           enum: ["sat", "sun", "mon", "tue", "wed", "thu", "fri"],

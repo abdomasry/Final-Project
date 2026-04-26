@@ -63,6 +63,31 @@ const normalizeCategoryIds = (ids) => {
   return [...new Set(ids.filter(id => mongoose.isValidObjectId(id)).map(String))];
 };
 
+const VALID_DAYS = new Set(["sat", "sun", "mon", "tue", "wed", "thu", "fri"]);
+const TIME_REGEX = /^\d{2}:\d{2}$/;
+
+const normalizeWorkingHours = (hours) => {
+  if (!Array.isArray(hours)) return null; // null → "ignore field"
+  const cleaned = [];
+  for (const item of hours) {
+    if (!item || typeof item !== "object") continue;
+    const day = String(item.day || "").toLowerCase();
+    if (!VALID_DAYS.has(day)) continue;
+    const enabled = item.enabled !== false; // default true
+    const from = String(item.from || "").trim();
+    const to = String(item.to || "").trim();
+    // If enabled, both from/to must be HH:MM. If disabled, accept any
+    // (typically empty) values and just store the day with enabled:false.
+    if (enabled && (!TIME_REGEX.test(from) || !TIME_REGEX.test(to))) {
+      const err = new Error(`صيغة الوقت غير صحيحة لليوم ${day}`);
+      err.statusCode = 400;
+      throw err;
+    }
+    cleaned.push({ day, from: enabled ? from : "", to: enabled ? to : "", enabled });
+  }
+  return cleaned;
+};
+
 const syncLicenseDocument = (profile) => {
   const otherDocs = (profile.documents || []).filter(doc => doc.type !== "license");
   if (profile.license?.fileUrl) {
@@ -205,6 +230,8 @@ const updateProfile = async (req, res) => {
       packages,
       portfolio,
       license,
+      workingHours,
+      typeOfWorker,
     } = req.body || {};
 
     let profile = await WorkerProfile.findOne({ userId });
@@ -248,6 +275,24 @@ const updateProfile = async (req, res) => {
 
     if (Array.isArray(packages)) profile.packages = normalizePackages(packages);
     if (Array.isArray(portfolio)) profile.portfolio = normalizePortfolio(portfolio);
+
+    // Working hours — server validates day enum + HH:MM format
+    if (workingHours !== undefined) {
+      const normalized = normalizeWorkingHours(workingHours);
+      if (normalized !== null) profile.workingHours = normalized;
+    }
+
+    // Worker type — individual or company
+    if (typeOfWorker !== undefined) {
+      const allowed = ["individual", "company"];
+      if (allowed.includes(typeOfWorker)) {
+        profile.typeOfWorker = typeOfWorker;
+      }
+    }
+
+    // Defensive: silently strip server-managed fields if they leak in
+    delete req.body.rank;
+    delete req.body.completedOrdersCount;
 
     let shouldNotifyAdmins = false;
     if (license && typeof license === "object") {
@@ -298,6 +343,9 @@ const updateProfile = async (req, res) => {
     res.json({ profile: populatedProfile });
   } catch (error) {
     console.error("updateProfile error:", error);
+    if (error?.statusCode === 400) {
+      return res.status(400).json({ message: error.message });
+    }
     res.status(500).json({ message: "Server error updating worker profile" });
   }
 };
