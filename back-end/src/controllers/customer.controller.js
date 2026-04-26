@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const User = require("../Models/User.Model");
 const CustomerProfile = require("../Models/Customer.Profile");
 const ServiceRequest = require("../Models/Service.Request");
@@ -25,12 +26,17 @@ const getProfile = async (req, res) => {
 
     // findOne looks for a CustomerProfile where userId matches.
     // If none exists, customerProfile will be null.
-    let customerProfile = await CustomerProfile.findOne({ userId });
+    let customerProfile = await CustomerProfile.findOne({ userId })
+      .populate("favoriteCategoryIds", "name image")
+      .populate("favoriteWorkerIds", "firstName lastName profileImage");
 
     // Auto-create: if this user has never had a profile, make one now.
     // This avoids forcing every signup to also create a CustomerProfile.
     if (!customerProfile) {
-      customerProfile = await CustomerProfile.create({ userId });
+      const fresh = await CustomerProfile.create({ userId });
+      customerProfile = await CustomerProfile.findById(fresh._id)
+        .populate("favoriteCategoryIds", "name image")
+        .populate("favoriteWorkerIds", "firstName lastName profileImage");
     }
 
     // Count how many service requests (orders) this customer has made.
@@ -60,6 +66,13 @@ const getProfile = async (req, res) => {
         notificationPreferences: req.user.notificationPreferences,
         numberOfOrders: totalOrders,
         memberSince: req.user.createdAt,
+        // ─── Enhanced profile additions ─────────────────────
+        addresses: customerProfile.addresses || [],
+        favoriteCategories: customerProfile.favoriteCategoryIds || [],
+        favoriteWorkers: customerProfile.favoriteWorkerIds || [],
+        ratingAverage: customerProfile.ratingAverage || 0,
+        totalRatings: customerProfile.totalRatings || 0,
+        preferredLanguage: customerProfile.preferredLanguage || "ar",
       },
     });
   } catch (error) {
@@ -102,7 +115,7 @@ const getProfile = async (req, res) => {
 const updateProfile = async (req, res) => {
   try {
     const userId = req.user._id;
-    const { firstName, lastName, phone, bio, location, email } = req.body;
+    const { firstName, lastName, phone, bio, location, email, preferredLanguage, favoriteCategoryIds } = req.body;
 
     // Build an object with ONLY the fields the user actually sent.
     // If firstName is undefined (not sent), it won't be included.
@@ -148,6 +161,20 @@ const updateProfile = async (req, res) => {
         { userId },
         { location: `${location.city || ""}, ${location.area || ""}`.trim() },
       );
+    }
+
+    // Profile-level fields that live on CustomerProfile only.
+    const profileUpdates = {};
+    if (preferredLanguage && ["ar", "en"].includes(preferredLanguage)) {
+      profileUpdates.preferredLanguage = preferredLanguage;
+    }
+    if (Array.isArray(favoriteCategoryIds)) {
+      profileUpdates.favoriteCategoryIds = [...new Set(
+        favoriteCategoryIds.filter(id => mongoose.isValidObjectId(id)).map(String),
+      )];
+    }
+    if (Object.keys(profileUpdates).length > 0) {
+      await CustomerProfile.findOneAndUpdate({ userId }, profileUpdates);
     }
 
     // Recount orders for accurate response
@@ -275,4 +302,137 @@ const getOrders = async (req, res) => {
   }
 };
 
-module.exports = { getProfile, updateProfile, getOrders };
+// ============================================================
+// Address management
+// ============================================================
+// All four handlers operate on CustomerProfile.addresses (an
+// embedded subdoc array). Mongoose gives each subdoc its own _id,
+// which we use as the URL segment for update/delete.
+
+// Helper — auto-create the profile if it doesn't exist yet.
+const getOrCreateProfile = async (userId) => {
+  let profile = await CustomerProfile.findOne({ userId });
+  if (!profile) profile = await CustomerProfile.create({ userId });
+  return profile;
+};
+
+// POST /api/customer/addresses
+const addAddress = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { label, addressLine, city, area, isPrimary } = req.body || {};
+    if (!addressLine || !addressLine.trim()) {
+      return res.status(400).json({ message: "العنوان مطلوب" });
+    }
+    const profile = await getOrCreateProfile(userId);
+    const isFirst = (profile.addresses || []).length === 0;
+    const next = {
+      label: String(label || "المنزل").trim(),
+      addressLine: String(addressLine).trim(),
+      city: String(city || "").trim(),
+      area: String(area || "").trim(),
+      isPrimary: isFirst || isPrimary === true,
+    };
+    // If this becomes primary, demote any existing primary first.
+    if (next.isPrimary) {
+      profile.addresses = (profile.addresses || []).map(a => ({
+        ...a.toObject(), isPrimary: false,
+      }));
+    }
+    profile.addresses.push(next);
+    await profile.save();
+    res.json({ addresses: profile.addresses });
+  } catch (err) {
+    console.error("addAddress error:", err);
+    res.status(500).json({ message: "Server error adding address" });
+  }
+};
+
+// PUT /api/customer/addresses/:id
+const updateAddress = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { id } = req.params;
+    const { label, addressLine, city, area, isPrimary } = req.body || {};
+    const profile = await CustomerProfile.findOne({ userId });
+    if (!profile) return res.status(404).json({ message: "Profile not found" });
+    const addr = profile.addresses.id(id);
+    if (!addr) return res.status(404).json({ message: "Address not found" });
+    if (label !== undefined) addr.label = String(label).trim();
+    if (addressLine !== undefined) addr.addressLine = String(addressLine).trim();
+    if (city !== undefined) addr.city = String(city).trim();
+    if (area !== undefined) addr.area = String(area).trim();
+    if (isPrimary === true) {
+      profile.addresses.forEach(a => { a.isPrimary = false; });
+      addr.isPrimary = true;
+    }
+    await profile.save();
+    res.json({ addresses: profile.addresses });
+  } catch (err) {
+    console.error("updateAddress error:", err);
+    res.status(500).json({ message: "Server error updating address" });
+  }
+};
+
+// DELETE /api/customer/addresses/:id
+const deleteAddress = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { id } = req.params;
+    const profile = await CustomerProfile.findOne({ userId });
+    if (!profile) return res.status(404).json({ message: "Profile not found" });
+    const addr = profile.addresses.id(id);
+    if (!addr) return res.status(404).json({ message: "Address not found" });
+    const wasPrimary = addr.isPrimary;
+    profile.addresses.pull(id);
+    // If we deleted the primary and there are still addresses left,
+    // promote the first remaining one so there's always a primary.
+    if (wasPrimary && profile.addresses.length > 0) {
+      profile.addresses[0].isPrimary = true;
+    }
+    await profile.save();
+    res.json({ addresses: profile.addresses });
+  } catch (err) {
+    console.error("deleteAddress error:", err);
+    res.status(500).json({ message: "Server error deleting address" });
+  }
+};
+
+// ============================================================
+// Favorite workers — toggle on/off
+// ============================================================
+// POST /api/customer/favorites/workers/:workerId  (toggle)
+const toggleFavoriteWorker = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { workerId } = req.params;
+    if (!mongoose.isValidObjectId(workerId)) {
+      return res.status(400).json({ message: "Invalid worker id" });
+    }
+    const profile = await getOrCreateProfile(userId);
+    const idx = profile.favoriteWorkerIds.findIndex(id => String(id) === String(workerId));
+    let isFavorite;
+    if (idx >= 0) {
+      profile.favoriteWorkerIds.splice(idx, 1);
+      isFavorite = false;
+    } else {
+      profile.favoriteWorkerIds.push(workerId);
+      isFavorite = true;
+    }
+    await profile.save();
+    res.json({ isFavorite, favoriteWorkerIds: profile.favoriteWorkerIds });
+  } catch (err) {
+    console.error("toggleFavoriteWorker error:", err);
+    res.status(500).json({ message: "Server error toggling favorite" });
+  }
+};
+
+module.exports = {
+  getProfile,
+  updateProfile,
+  getOrders,
+  addAddress,
+  updateAddress,
+  deleteAddress,
+  toggleFavoriteWorker,
+};

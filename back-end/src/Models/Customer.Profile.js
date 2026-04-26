@@ -33,6 +33,37 @@ const customerProfileSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "LiveChat",
     }],
+    // ─── Saved addresses ─────────────────────────────────────────
+    // Each address is a small object; one of them can be the primary.
+    // _id: false would prevent stable IDs we need for update/delete,
+    // so we keep Mongoose's auto-_id here intentionally.
+    addresses: [
+      {
+        label: { type: String, default: "المنزل" },
+        addressLine: String,
+        city: String,
+        area: String,
+        isPrimary: { type: Boolean, default: false },
+      },
+    ],
+    // ─── Favorites ───────────────────────────────────────────────
+    // Categories the customer prefers (powers the "الخدمات المفضلة"
+    // chips section) and workers they've bookmarked (powers the
+    // "العمال المفضلين" stat card).
+    favoriteCategoryIds: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+    ],
+    favoriteWorkerIds: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    ],
+    // ─── Customer rating ─────────────────────────────────────────
+    // Workers rate customers after order completion. The scoring
+    // flow is not implemented yet — these fields default to 0 and
+    // will be populated once the worker-rates-customer flow exists.
+    ratingAverage: { type: Number, default: 0 },
+    totalRatings: { type: Number, default: 0 },
+    // ─── Account preferences ────────────────────────────────────
+    preferredLanguage: { type: String, enum: ["ar", "en"], default: "ar" },
   },
   { timestamps: true },
 );
