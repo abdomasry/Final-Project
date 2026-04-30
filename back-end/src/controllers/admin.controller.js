@@ -584,6 +584,153 @@ const rejectService = async (req, res) => {
   }
 };
 
+// ============================================================
+// LICENSES — admin-side review queue + approve/reject
+// ============================================================
+// The worker submits multi-license entries (training, professional, …)
+// from /worker/licenses. Each enters as "pending" and waits here.
+// Admin verdict mirrors the services flow: notification + status change +
+// optional rejection reason. Worker then flips `active` themselves.
+
+// GET /api/admin/licenses?status=pending&page=1&limit=20
+// Defaults to pending. Returns one row per LICENSE (not per profile), with
+// the parent profile + user context the reviewer needs to make a decision.
+const getLicenses = async (req, res) => {
+  try {
+    const status = ["pending", "approved", "rejected"].includes(req.query.status)
+      ? req.query.status
+      : "pending";
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+
+    // Aggregation: unwind licenses → match status → join the user → project
+    // a flat row per license. Doing this in Mongo (instead of fetching all
+    // profiles client-side) keeps the queue fast as the platform grows.
+    const skip = (page - 1) * limit;
+
+    const pipeline = [
+      { $match: { "licenses.status": status } },
+      { $unwind: "$licenses" },
+      { $match: { "licenses.status": status } },
+      {
+        $lookup: {
+          from: "users",
+          localField: "userId",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      { $unwind: "$user" },
+      {
+        $project: {
+          _id: 0,
+          workerProfileId: "$_id",
+          workerUserId: "$user._id",
+          workerName: { $concat: ["$user.firstName", " ", "$user.lastName"] },
+          workerProfileImage: "$user.profileImage",
+          license: "$licenses",
+        },
+      },
+      { $sort: { "license.submittedAt": -1 } },
+    ];
+
+    // Count first (separate query — fast, just a $match + $unwind + $count).
+    const countPipeline = [
+      { $match: { "licenses.status": status } },
+      { $unwind: "$licenses" },
+      { $match: { "licenses.status": status } },
+      { $count: "total" },
+    ];
+
+    const [items, countResult] = await Promise.all([
+      WorkerProfile.aggregate([...pipeline, { $skip: skip }, { $limit: limit }]),
+      WorkerProfile.aggregate(countPipeline),
+    ]);
+
+    const total = countResult[0]?.total || 0;
+    res.json({
+      licenses: items,
+      pagination: { page, limit, total, pages: Math.ceil(total / limit) },
+    });
+  } catch (error) {
+    console.error("getLicenses error:", error);
+    res.status(500).json({ message: "Server error fetching licenses" });
+  }
+};
+
+// PUT /api/admin/licenses/:licenseId/approve
+// Locates the parent profile by sub-doc id, flips status, notifies worker.
+// Note: we don't auto-activate — the worker chooses when to surface it.
+const approveLicense = async (req, res) => {
+  try {
+    const { licenseId } = req.params;
+
+    const profile = await WorkerProfile.findOne({ "licenses._id": licenseId });
+    if (!profile) {
+      return res.status(404).json({ message: "License not found" });
+    }
+    const license = profile.licenses.id(licenseId);
+    if (!license) {
+      return res.status(404).json({ message: "License not found" });
+    }
+
+    license.status = "approved";
+    license.rejectionReason = "";
+    license.reviewedAt = new Date();
+    await profile.save();
+
+    await Notification.create({
+      userId: profile.userId,
+      title: "تمت الموافقة على الرخصة",
+      message: `تمت الموافقة على رخصة "${license.name}". يمكنك تفعيلها الآن من ملفك الشخصي.`,
+      type: "success",
+      link: "/dashboard",
+    });
+
+    res.json({ license });
+  } catch (error) {
+    console.error("approveLicense error:", error);
+    res.status(500).json({ message: "Server error approving license" });
+  }
+};
+
+// PUT /api/admin/licenses/:licenseId/reject
+// Body: { reason } — optional explanation surfaced to the worker.
+const rejectLicense = async (req, res) => {
+  try {
+    const { licenseId } = req.params;
+    const { reason } = req.body;
+
+    const profile = await WorkerProfile.findOne({ "licenses._id": licenseId });
+    if (!profile) {
+      return res.status(404).json({ message: "License not found" });
+    }
+    const license = profile.licenses.id(licenseId);
+    if (!license) {
+      return res.status(404).json({ message: "License not found" });
+    }
+
+    license.status = "rejected";
+    license.rejectionReason = String(reason || "").trim();
+    license.active = false; // a previously-approved license being re-rejected shouldn't keep showing
+    license.reviewedAt = new Date();
+    await profile.save();
+
+    await Notification.create({
+      userId: profile.userId,
+      title: "تم رفض الرخصة",
+      message: `تم رفض رخصة "${license.name}".${reason ? ` السبب: ${reason}` : ""} يمكنك تعديلها وإعادة تقديمها.`,
+      type: "error",
+      link: "/dashboard",
+    });
+
+    res.json({ license });
+  } catch (error) {
+    console.error("rejectLicense error:", error);
+    res.status(500).json({ message: "Server error rejecting license" });
+  }
+};
+
 module.exports = {
   getStats,
   getUsers,
@@ -598,4 +745,7 @@ module.exports = {
   getPendingServices,
   approveService,
   rejectService,
+  getLicenses,
+  approveLicense,
+  rejectLicense,
 };

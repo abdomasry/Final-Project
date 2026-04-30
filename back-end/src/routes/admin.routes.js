@@ -14,6 +14,9 @@ const {
   getPendingServices,
   approveService,
   rejectService,
+  getLicenses,
+  approveLicense,
+  rejectLicense,
 } = require("../controllers/admin.controller");
 const {
   listAllTickets,
@@ -36,6 +39,12 @@ router.put("/orders/:id/status", authMiddleware, adminOnly, updateOrderStatus);
 router.get("/pending-services", authMiddleware, adminOnly, getPendingServices);
 router.put("/services/:id/approve", authMiddleware, adminOnly, approveService);
 router.put("/services/:id/reject", authMiddleware, adminOnly, rejectService);
+
+// License review queue (multi-license / training certs).
+// One row per LICENSE entry — see admin.controller.getLicenses for the shape.
+router.get("/licenses", authMiddleware, adminOnly, getLicenses);
+router.put("/licenses/:licenseId/approve", authMiddleware, adminOnly, approveLicense);
+router.put("/licenses/:licenseId/reject", authMiddleware, adminOnly, rejectLicense);
 
 // Support tickets — admin list + status management. The user-side endpoints
 // (create / view / reply) live in support.routes.js at /api/support.

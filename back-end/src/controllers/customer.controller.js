@@ -115,17 +115,20 @@ const getProfile = async (req, res) => {
 const updateProfile = async (req, res) => {
   try {
     const userId = req.user._id;
-    const { firstName, lastName, phone, bio, location, email, preferredLanguage, favoriteCategoryIds } = req.body;
+    const { firstName, lastName, phone, bio, location, email, preferredLanguage, favoriteCategoryIds, profileImage } = req.body;
 
     // Build an object with ONLY the fields the user actually sent.
     // If firstName is undefined (not sent), it won't be included.
     // If firstName is "John" (sent), it becomes { firstName: "John" }.
+    // profileImage uses !== undefined so an empty string ("") clears the
+    // existing avatar — passing nothing leaves it untouched.
     const userUpdates = {
       ...(firstName && { firstName }),
       ...(lastName && { lastName }),
       ...(phone && { phone }),
       ...(bio && { bio }),
       ...(location && { location }),
+      ...(profileImage !== undefined && { profileImage: String(profileImage || "").trim() }),
     };
 
     // Allow phone-only users to add an email address

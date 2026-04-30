@@ -350,7 +350,10 @@ const getServiceById = async (req, res) => {
     const service = await WorkerServices.findById(req.params.serviceId)
       .populate({
         path: "workerID",
-        select: "userId verificationStatus",
+        // Include ratingAverage + totalReviews + rank so the service detail
+        // page can render trust signals (stars, count, rank badge) on the
+        // worker card without a second round-trip.
+        select: "userId verificationStatus ratingAverage totalReviews rank",
         populate: { path: "userId", select: "firstName lastName profileImage" },
       })
       .populate("categoryId", "name");

@@ -748,6 +748,152 @@ const getWallet = async (req, res) => {
   }
 };
 
+// ============================================================
+// LICENSES — multi-license / training-cert flow for the worker
+// ============================================================
+// Workers can submit multiple credentials. Each enters as "pending" and an
+// admin approves or rejects it. Approved licenses are deactivated by default;
+// the worker flips `active` to put one on their public profile.
+
+// POST /api/worker/licenses
+// Adds a new license entry. Worker-controlled fields only.
+const addLicense = async (req, res) => {
+  try {
+    const { name, number, fileUrl, issuedBy } = req.body;
+
+    if (!name || !String(name).trim()) {
+      return res.status(400).json({ message: "name is required" });
+    }
+    if (!fileUrl || !String(fileUrl).trim()) {
+      return res.status(400).json({ message: "fileUrl is required" });
+    }
+
+    const profile = await WorkerProfile.findOne({ userId: req.user._id });
+    if (!profile) {
+      return res.status(404).json({ message: "Worker profile not found" });
+    }
+
+    profile.licenses.push({
+      name: String(name).trim(),
+      number: String(number || "").trim(),
+      fileUrl: String(fileUrl).trim(),
+      issuedBy: String(issuedBy || "").trim(),
+      status: "pending",
+      rejectionReason: "",
+      active: false,
+      submittedAt: new Date(),
+    });
+
+    await profile.save();
+    // Return only the newly added entry — saves the client from re-reading
+    // the whole licenses array on every add.
+    const created = profile.licenses[profile.licenses.length - 1];
+    res.status(201).json({ license: created });
+  } catch (error) {
+    console.error("addLicense error:", error);
+    res.status(500).json({ message: "Server error adding license" });
+  }
+};
+
+// PUT /api/worker/licenses/:licenseId
+// Update editable fields. If the fileUrl changed, reset to "pending" since
+// the document itself was replaced — the previous approval no longer applies.
+const updateLicense = async (req, res) => {
+  try {
+    const { licenseId } = req.params;
+    const { name, number, fileUrl, issuedBy } = req.body;
+
+    const profile = await WorkerProfile.findOne({ userId: req.user._id });
+    if (!profile) {
+      return res.status(404).json({ message: "Worker profile not found" });
+    }
+
+    const license = profile.licenses.id(licenseId);
+    if (!license) {
+      return res.status(404).json({ message: "License not found" });
+    }
+
+    const fileChanged = typeof fileUrl === "string" && fileUrl.trim() && fileUrl.trim() !== license.fileUrl;
+
+    if (typeof name === "string" && name.trim()) license.name = name.trim();
+    if (typeof number === "string") license.number = number.trim();
+    if (typeof issuedBy === "string") license.issuedBy = issuedBy.trim();
+    if (fileChanged) {
+      license.fileUrl = fileUrl.trim();
+      // Replacing the document → admin must re-review.
+      license.status = "pending";
+      license.rejectionReason = "";
+      license.active = false;
+      license.submittedAt = new Date();
+      license.reviewedAt = undefined;
+    }
+
+    await profile.save();
+    res.json({ license });
+  } catch (error) {
+    console.error("updateLicense error:", error);
+    res.status(500).json({ message: "Server error updating license" });
+  }
+};
+
+// DELETE /api/worker/licenses/:licenseId
+const deleteLicense = async (req, res) => {
+  try {
+    const { licenseId } = req.params;
+
+    const profile = await WorkerProfile.findOne({ userId: req.user._id });
+    if (!profile) {
+      return res.status(404).json({ message: "Worker profile not found" });
+    }
+
+    const license = profile.licenses.id(licenseId);
+    if (!license) {
+      return res.status(404).json({ message: "License not found" });
+    }
+
+    license.deleteOne(); // Mongoose 8+: removes the sub-document
+    await profile.save();
+    res.json({ message: "License deleted", licenseId });
+  } catch (error) {
+    console.error("deleteLicense error:", error);
+    res.status(500).json({ message: "Server error deleting license" });
+  }
+};
+
+// PATCH /api/worker/licenses/:licenseId/active
+// Body: { active: boolean }
+// Only meaningful when the license is approved — pending/rejected ones can't
+// be activated regardless of the request body.
+const toggleLicenseActive = async (req, res) => {
+  try {
+    const { licenseId } = req.params;
+    const { active } = req.body;
+
+    const profile = await WorkerProfile.findOne({ userId: req.user._id });
+    if (!profile) {
+      return res.status(404).json({ message: "Worker profile not found" });
+    }
+
+    const license = profile.licenses.id(licenseId);
+    if (!license) {
+      return res.status(404).json({ message: "License not found" });
+    }
+
+    if (license.status !== "approved") {
+      return res.status(400).json({
+        message: "License must be approved before it can be activated",
+      });
+    }
+
+    license.active = Boolean(active);
+    await profile.save();
+    res.json({ license });
+  } catch (error) {
+    console.error("toggleLicenseActive error:", error);
+    res.status(500).json({ message: "Server error updating license" });
+  }
+};
+
 module.exports = {
   getDashboard,
   updateProfile,
@@ -757,4 +903,8 @@ module.exports = {
   deleteService,
   getMyOrders,
   getWallet,
+  addLicense,
+  updateLicense,
+  deleteLicense,
+  toggleLicenseActive,
 };

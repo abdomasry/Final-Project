@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ملف مزود الخدمة | The Ethereal Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&amp;family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#96f3e1",
+                    "tertiary-container": "#007769",
+                    "secondary-fixed": "#e1e3e2",
+                    "primary-fixed-dim": "#80d5cb",
+                    "outline": "#6e7977",
+                    "primary-container": "#0f766e",
+                    "surface-variant": "#d9e3f6",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#00504a",
+                    "on-surface": "#121c2a",
+                    "inverse-primary": "#80d5cb",
+                    "on-tertiary-container": "#9efbe9",
+                    "on-secondary-fixed": "#191c1c",
+                    "on-primary-fixed": "#00201d",
+                    "secondary-container": "#dee0df",
+                    "on-tertiary-fixed-variant": "#005046",
+                    "on-tertiary-fixed": "#00201b",
+                    "primary": "#005c55",
+                    "surface-bright": "#f8f9ff",
+                    "error-container": "#ffdad6",
+                    "background": "#f8f9ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#444747",
+                    "on-secondary-container": "#606363",
+                    "tertiary-fixed-dim": "#7ad7c6",
+                    "on-primary-container": "#a3faef",
+                    "surface-tint": "#006a63",
+                    "surface-container": "#e6eeff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-dim": "#d0dbed",
+                    "surface-container-low": "#eff4ff",
+                    "secondary-fixed-dim": "#c4c7c6",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "inverse-surface": "#27313f",
+                    "surface-container-highest": "#d9e3f6",
+                    "secondary": "#5c5f5e",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#bdc9c6",
+                    "on-background": "#121c2a",
+                    "surface-container-high": "#dee9fc",
+                    "tertiary": "#005c51",
+                    "primary-fixed": "#9cf2e8",
+                    "on-surface-variant": "#3e4947",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["IBM Plex Sans Arabic", "Be Vietnam Pro"],
+                    "body": ["IBM Plex Sans Arabic", "Be Vietnam Pro"],
+                    "label": ["IBM Plex Sans Arabic", "Be Vietnam Pro"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .tonal-layering { transition: background-color 0.3s ease; }
+        body { font-family: 'IBM Plex Sans Arabic', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<nav class="fixed top-0 w-full z-50 bg-slate-50/60 dark:bg-slate-900/60 backdrop-blur-xl shadow-sm shadow-teal-900/5 flex flex-row-reverse justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-6">
+<span class="text-2xl font-bold text-teal-800 dark:text-teal-300">The Ethereal Marketplace</span>
+<div class="hidden md:flex flex-row-reverse gap-8">
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-teal-600 transition-colors" href="#">Browse</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-teal-600 transition-colors" href="#">How it Works</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-teal-600 transition-colors" href="#">About</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="bg-surface-container-low border-none rounded-xl pr-10 pl-4 py-2 focus:ring-2 focus:ring-primary/20 w-64 text-sm" placeholder="بحث عن خدمات..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">favorite</button>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant/10">
+<img class="w-full h-full object-cover" data-alt="professional headshot of a middle eastern male service provider with a friendly expression and professional attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe42p89P8jcqE5rpuu4_JjzsF7kliDJeyBNi3kpAc0E1n4bEYrQcZ8apy4htQ0riACOABo3Ongi0qKtptfKueaPmpEntuAnvoUZu_FCtv9eX4YIDYofvh3e1ol1BOaHeeypZ8IBZQ116YrButBnffGyi88zEjFQ4-_v4_DrOr2eJ7W94qr_vACo32_a3HoTxisj1VipRBzN5IOrpSo4fRciYF_6FP18ehJI4Xh4pg5JMp5BuAzfUAoi0x1EPluNrN4z65L8SZPwsAU"/>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<div class="bg-teal-900 text-white pt-32 pb-16 px-4 sm:px-6 lg:px-8 mt-16 relative overflow-hidden">
+<div class="absolute inset-0 opacity-20">
+<div class="absolute inset-0 bg-gradient-to-r from-teal-900 to-teal-800 mix-blend-multiply"></div>
+<svg aria-hidden="true" class="absolute right-0 h-full w-1/2 translate-x-1/3 transform text-teal-800" fill="currentColor" preserveaspectratio="none" viewbox="0 0 100 100">
+<polygon points="50,0 100,0 50,100 0,100"></polygon>
+</svg>
+</div>
+<div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center gap-8">
+<div class="relative w-40 h-40 shrink-0">
+<img class="w-full h-full object-cover rounded-full border-4 border-teal-500 shadow-xl" data-alt="professional close-up portrait of Ahmad Al-Sayed, a verified service provider with a neat beard and professional workspace background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7AbX3vomxu4jGQS6cqvUjldIN0Pm9sk_wA5b1oZnvJzYN2djl1pcDHjLT3rdqMST8-7N2stAD-L8RMyQGTP1vYMfsyTW6p7r8Nmpv_IL9DJukZnowz8sHIDZAP5d2xkbQEOi0UGZnG23fZEz6HGR7uOJ5VIXltx26e0uohcVtqtQCh7tRQixFL_8B26jeyl9t5nsWvWQ-S4pAXZIRCyvnH67SJLb_ZMH9x8Do-bFBJidllQZDISQwvnL3UYt3vBiViutPiTfQPSVO"/>
+<div class="absolute bottom-2 right-2 bg-white text-teal-600 p-1.5 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-lg block" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="text-center md:text-right flex-1">
+<h1 class="text-4xl font-bold mb-2">أحمد السيد</h1>
+<p class="text-teal-200 text-xl mb-4 font-light">"حلول كهربائية آمنة وذكية لمنزلك المودرن"</p>
+<div class="flex flex-wrap justify-center md:justify-start items-center gap-6 text-sm text-teal-100">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">star</span>
+<span class="font-bold text-white text-lg">4.9</span>
+<span>(124 تقييم)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">location_on</span>
+<span>الرياض، السعودية</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">work</span>
+<span>+10 سنوات خبرة</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<main class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto -mt-8 relative z-20">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<section class="lg:col-span-8 space-y-8 order-2 lg:order-1">
+<!-- About Section -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+<h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-teal-600">person</span>
+    نبذة عني
+</h2>
+<p class="text-slate-600 leading-relaxed mb-6 text-lg">
+                        متخصص في التركيبات الكهربائية والصيانة المنزلية بخبرة تزيد عن 10 سنوات. أقدم حلولاً متكاملة تشمل تركيب اللوحات الكهربائية، صيانة أنظمة الإنارة الحديثة، وتمديد الأسلاك للمباني الجديدة. ألتزم دائماً بمعايير السلامة العالمية والجودة في التنفيذ لضمان راحة بال العميل. أؤمن بأن العمل المتقن هو أساس الثقة بيني وبين عملائي.
+                    </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<div>
+<h3 class="font-bold text-slate-800 mb-3 text-lg">المهارات المتخصصة</h3>
+<div class="flex flex-wrap gap-2">
+<span class="bg-teal-50 text-teal-700 border border-teal-100 px-4 py-2 rounded-lg text-sm font-medium">تمديدات كهربائية معقدة</span>
+<span class="bg-teal-50 text-teal-700 border border-teal-100 px-4 py-2 rounded-lg text-sm font-medium">صيانة وتحديث لوحات</span>
+<span class="bg-teal-50 text-teal-700 border border-teal-100 px-4 py-2 rounded-lg text-sm font-medium">تركيب وبرمجة إضاءة ذكية</span>
+<span class="bg-teal-50 text-teal-700 border border-teal-100 px-4 py-2 rounded-lg text-sm font-medium">تأسيس شامل للفلل</span>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-slate-800 mb-3 text-lg">الشهادات والاعتمادات</h3>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-slate-600">
+<span class="material-symbols-outlined text-amber-500">workspace_premium</span>
+<span>رخصة فني كهربائي معتمد (الفئة أ)</span>
+</li>
+<li class="flex items-center gap-3 text-slate-600">
+<span class="material-symbols-outlined text-amber-500">workspace_premium</span>
+<span>شهادة السلامة المهنية (OSHA)</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Pricing Section -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+<h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-teal-600">payments</span>
+    باقات الأسعار
+</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="border border-slate-200 rounded-xl p-6 hover:border-teal-500 hover:shadow-md transition-all">
+<h3 class="text-lg font-bold text-slate-800 mb-2">زيارة كشف وصيانة</h3>
+<div class="text-3xl font-bold text-teal-600 mb-4">150 <span class="text-sm text-slate-500 font-normal">ج.م/زيارة</span></div>
+<ul class="space-y-2 text-sm text-slate-600 mb-6">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-sm">check</span> فحص الأعطال البسيطة</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-sm">check</span> إصلاح مقابس وإنارة</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-sm">check</span> لا تشمل قطع الغيار</li>
+</ul>
+<button class="w-full py-2 bg-slate-100 text-slate-700 font-medium rounded-lg hover:bg-slate-200 transition-colors">اختيار الباقة</button>
+</div>
+<div class="border-2 border-teal-500 rounded-xl p-6 relative shadow-md">
+<div class="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 bg-teal-500 text-white px-3 py-1 rounded-full text-xs font-bold">الأكثر طلباً</div>
+<h3 class="text-lg font-bold text-slate-800 mb-2">نظام الإضاءة الذكية</h3>
+<div class="text-3xl font-bold text-teal-600 mb-4">800 <span class="text-sm text-slate-500 font-normal">ج.م/غرفة</span></div>
+<ul class="space-y-2 text-sm text-slate-600 mb-6">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-sm">check</span> تركيب وتوصيل</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-sm">check</span> برمجة التطبيقات</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-sm">check</span> ضمان 6 شهور على التركيب</li>
+</ul>
+<button class="w-full py-2 bg-teal-600 text-white font-medium rounded-lg hover:bg-teal-700 transition-colors">اختيار الباقة</button>
+</div>
+<div class="border border-slate-200 rounded-xl p-6 hover:border-teal-500 hover:shadow-md transition-all">
+<h3 class="text-lg font-bold text-slate-800 mb-2">تأسيس شقة كاملة</h3>
+<div class="text-3xl font-bold text-teal-600 mb-4">تواصل <span class="text-sm text-slate-500 font-normal">لتسعير مخصص</span></div>
+<ul class="space-y-2 text-sm text-slate-600 mb-6">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-sm">check</span> تصميم المخطط</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-sm">check</span> تمديد الأسلاك واللوحات</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-sm">check</span> إشراف كامل</li>
+</ul>
+<button class="w-full py-2 bg-slate-100 text-slate-700 font-medium rounded-lg hover:bg-slate-200 transition-colors">طلب تسعير</button>
+</div>
+</div>
+</div>
+<!-- Portfolio Section -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+<span class="material-symbols-outlined text-teal-600">photo_library</span>
+    معرض الأعمال
+</h2>
+<button class="text-teal-600 font-medium hover:underline flex items-center gap-1">عرض الكل <span class="material-symbols-outlined text-sm">arrow_back_ios_new</span></button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="group relative rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="close up of a professional electrician installing a complex smart home control panel with organized wiring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8aS9QqXkzlY0D7ySmq7-UFv6BO5HHi_LTrbLEWJEaWllwKP56mcBjjz1LPoi2MzMefO59fP17tzC9r9WJk0oWxSc6BuSNd8JCnkmzVXmTzWjAQZi11jrM_L8XkBJ_Ds3rsrTHKTEZ-LzU6_PWwY3qbGv1Cl0uqs6B9loYNKI_-aiBaRdQWYGAq-dliNIg5KquJPfZNG9NUGrKPGRuxPAkXNSgAmed2CfT6TkYbTm9AfBmahcFQlSEGHSihFP3yIBClFhJgNoo9gOm"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80"></div>
+</div>
+<div class="absolute bottom-0 w-full p-4 text-white">
+<h4 class="font-bold text-lg mb-1">تركيب لوحة تحكم منزل ذكي</h4>
+<p class="text-sm text-slate-200 line-clamp-1">فيلا سكنية - حي الملقا، الرياض</p>
+</div>
+</div>
+<div class="group relative rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="modern living room with architectural recessed lighting installed professionally in a clean white ceiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrTuTweibS5xN9ysnboHEk_eKjB5Y1EkuG_ms7S7cj0pVyeivN8RCfiMCN4ENyMFYa2CqiajWfXWdjKFnT9HXm9AXb0Msffg-63hFJjWcabth1EvqCe08tTHEmhUdG3Sk3ZOqhALwfrJtwwEODu7Q33Nypxw9_YnXsMY4t_H00SIAcdWoUVwyLfYDFtmesN6WMLMcz6ehMcUDrMJwRYen8MM2Tx6TpDKl2YhGiHkQrsjnoavhw0OvQOTAyf-e9gAyuTLH6E-zbK5x5"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80"></div>
+</div>
+<div class="absolute bottom-0 w-full p-4 text-white">
+<h4 class="font-bold text-lg mb-1">تأسيس إنارة مخفية</h4>
+<p class="text-sm text-slate-200 line-clamp-1">شقة فندقية - تصميم عصري متكامل</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Reviews Section -->
+<div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+<h2 class="text-2xl font-bold text-slate-800 mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-teal-600">forum</span>
+    تقييمات العملاء
+</h2>
+<div class="space-y-8">
+<div class="flex gap-5">
+<div class="w-14 h-14 rounded-full overflow-hidden shrink-0 border-2 border-slate-100 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="portrait of a satisfied male customer in casual clothing looking towards the camera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC78zmZcqZZbpaGFLOFr0A6O_jYoAPXaMyrP5w0G1jxBz8G8FwMR1Rwg2gOgtomQxqmYgJIMrOGqU_crCI7AoFsMlctXizvIVJEzLiKtVxhYT0XRd8sonrKkuI7aUYCbgNK2jrk0zxpuC7zEh4zii5ErumAAYFL1aLVs5kk880P1lxhch7Pqx76ohF752QDFT-do5AiiiVPaixdn8zB7J7LWrxrHmWSQlLamv8CDKTs9BVT3QheF1pqvLGAiuDkCif39i_4Jr0JMJHk"/>
+</div>
+<div class="flex-1 bg-slate-50 p-5 rounded-2xl rounded-tr-none">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="font-bold text-slate-800 text-lg">خالد العتيبي</h4>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<span class="text-slate-500 text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+    ١٥ أكتوبر ٢٠٢٣
+</span>
+</div>
+<p class="text-slate-600 leading-relaxed">
+                                    أحمد محترف جداً ودقيق في مواعيده. قام بإصلاح عطل كهربائي معقد في اللوحة الرئيسية في وقت قياسي وبسعر منافس جداً مقارنة بالسوق. أنصح بالتعامل معه بشدة لأي أعمال كهربائية.
+                                </p>
+</div>
+</div>
+<div class="flex gap-5">
+<div class="w-14 h-14 rounded-full overflow-hidden shrink-0 border-2 border-slate-100 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="portrait of a professional woman with a soft smile and natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnH9CNi4A602bd4gDKMlr3kDexwuUVrF5QTPqRQ7Z4MhwRZaQjAy92R9NjhXDps8H1GUbUIBZ5TpDPpgxKsV1KIhjXic5f4lVeG3z_GYEyfA2hn1KtnRP1Rf25pzTVPlmEOzjELgDlZovZm-c-vMpLTiS9bjeOdieZnx8NEZEihdny09rhqMOYrIjxSTtRK1rmZnOZFWL0NszRj6PyuHJ-zFznvGBZMpvSzCyyduBVqZWdUW6jWzd0G-OFjgc8FZraww7OL9qYF3Zw"/>
+</div>
+<div class="flex-1 bg-slate-50 p-5 rounded-2xl rounded-tr-none">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="font-bold text-slate-800 text-lg">سارة منصور</h4>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm text-slate-300" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<span class="text-slate-500 text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+    ٠٢ أكتوبر ٢٠٢٣
+</span>
+</div>
+<p class="text-slate-600 leading-relaxed">
+                                    خدمة ممتازة، قام بتركيب نجف الصالون والإنارة المخفية بدقة عالية. كان حريصاً جداً على نظافة المكان بعد الانتهاء من العمل. تأخر قليلاً عن الموعد لكن العمل النهائي كان رائعاً.
+                                </p>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 text-teal-600 font-bold bg-teal-50 rounded-xl hover:bg-teal-100 transition-colors border border-teal-100">عرض المزيد من التقييمات (122)</button>
+</div>
+</section>
+<!-- Sidebar -->
+<aside class="lg:col-span-4 space-y-6 order-1 lg:order-2">
+<!-- Booking Card -->
+<div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 sticky top-28">
+<div class="text-center mb-6 border-b border-slate-100 pb-6">
+<span class="text-slate-500 block mb-1">السعر المبدئي للزيارة</span>
+<div class="text-3xl font-bold text-slate-800">75 <span class="text-xl font-normal text-slate-500">ج.م/ساعة</span></div>
+</div>
+<div class="space-y-4 mb-6">
+<button class="w-full bg-teal-600 text-white py-3.5 rounded-xl font-bold text-lg shadow-md shadow-teal-500/30 hover:bg-teal-700 hover:shadow-lg transition-all transform active:scale-[0.98] flex justify-center items-center gap-2">
+<span class="material-symbols-outlined">event_available</span>
+            احجز موعد الآن
+        </button>
+<button class="w-full bg-white text-teal-700 border-2 border-teal-100 py-3 rounded-xl font-bold hover:bg-teal-50 transition-all flex justify-center items-center gap-2">
+<span class="material-symbols-outlined">chat</span>
+            أرسل رسالة
+        </button>
+</div>
+<!-- Metrics -->
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+<div class="text-center p-3 bg-slate-50 rounded-xl">
+<span class="material-symbols-outlined text-teal-500 block mb-1">timer</span>
+<span class="block text-xs text-slate-500 mb-1">وقت الاستجابة</span>
+<span class="font-bold text-slate-800">ساعتين</span>
+</div>
+<div class="text-center p-3 bg-slate-50 rounded-xl">
+<span class="material-symbols-outlined text-teal-500 block mb-1">task_alt</span>
+<span class="block text-xs text-slate-500 mb-1">نسبة الإنجاز</span>
+<span class="font-bold text-slate-800">98%</span>
+</div>
+</div>
+</div>
+<!-- Verification Card -->
+<div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+<h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-teal-600">verified_user</span>
+                        شهادات التحقق
+                    </h3>
+<ul class="space-y-4 text-sm">
+<li class="flex items-start gap-3">
+<div class="bg-teal-50 p-1 rounded-full text-teal-600 shrink-0">
+<span class="material-symbols-outlined text-sm block">check</span>
+</div>
+<div>
+<div class="font-bold text-slate-700">الهوية موثقة</div>
+<div class="text-slate-500 text-xs mt-0.5">تم التحقق من الهوية الوطنية</div>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<div class="bg-teal-50 p-1 rounded-full text-teal-600 shrink-0">
+<span class="material-symbols-outlined text-sm block">check</span>
+</div>
+<div>
+<div class="font-bold text-slate-700">الرخصة المهنية</div>
+<div class="text-slate-500 text-xs mt-0.5">سارية المفعول حتى ٢٠٢٥</div>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<div class="bg-teal-50 p-1 rounded-full text-teal-600 shrink-0">
+<span class="material-symbols-outlined text-sm block">check</span>
+</div>
+<div>
+<div class="font-bold text-slate-700">تأمين مهني</div>
+<div class="text-slate-500 text-xs mt-0.5">يغطي الحوادث والأضرار</div>
+</div>
+</li>
+</ul>
+</div>
+</aside>
+</div>
+</main>
+<footer class="w-full py-12 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 mt-12 relative z-20">
+<div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row-reverse justify-between items-center gap-6">
+<div class="text-lg font-bold text-teal-800 dark:text-teal-300">The Ethereal Marketplace</div>
+<div class="flex flex-row-reverse gap-6">
+<a class="text-slate-500 dark:text-slate-400 font-be-vietnam-pro text-sm text-right hover:underline decoration-teal-500 underline-offset-4 opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 font-be-vietnam-pro text-sm text-right hover:underline decoration-teal-500 underline-offset-4 opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+<a class="text-slate-500 dark:text-slate-400 font-be-vietnam-pro text-sm text-right hover:underline decoration-teal-500 underline-offset-4 opacity-80 hover:opacity-100" href="#">Support</a>
+<a class="text-slate-500 dark:text-slate-400 font-be-vietnam-pro text-sm text-right hover:underline decoration-teal-500 underline-offset-4 opacity-80 hover:opacity-100" href="#">Contact</a>
+</div>
+<p class="text-slate-500 dark:text-slate-400 font-be-vietnam-pro text-sm text-right opacity-80">© 2024 The Ethereal Marketplace. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

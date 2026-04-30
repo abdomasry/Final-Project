@@ -18,7 +18,7 @@ const ServiceRequest = require("../Models/Service.Request");
 const { computeRank } = require("../lib/rank");
 
 async function main() {
-  const uri = process.env.MONGO_URI;
+  const uri = "mongodb+srv://Masry_db:ufVYQK2SoactVrI4@final-project.x6hd7wt.mongodb.net/";
   if (!uri) {
     console.error("MONGO_URI is not set; aborting.");
     process.exit(1);

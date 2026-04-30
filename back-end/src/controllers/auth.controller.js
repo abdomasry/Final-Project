@@ -1,6 +1,6 @@
 const User = require("../Models/User.Model");
 const jwt = require("jsonwebtoken");
-const { sendVerificationEmail } = require("../config/email");
+const { sendVerificationEmail, sendPasswordResetEmail } = require("../config/email");
 
 const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "7d" });
@@ -145,13 +145,24 @@ const signin = async (req, res) => {
   }
 };
 
+// ============================================================
+// POST /api/auth/forgot-password
+// ============================================================
+// Body: { email? } | { phone? }
+// Generates a 1-hour reset JWT, stashes it on the user, and emails the link.
+// SMS-based reset for phone-only users isn't wired yet — those accounts get a
+// 200 OK with no email sent (we don't disclose which channel succeeded).
+//
+// Security note: we always respond 200 OK even if the user wasn't found, to
+// avoid leaking which emails/phones are registered. The Arabic message is
+// generic on purpose.
 const forgotPassword = async (req, res) => {
   try {
     const { email, phone } = req.body;
 
     if (!(email || phone)) {
       return res.status(400).json({
-        message: "Please provide email or phone",
+        message: "يرجى إدخال البريد الإلكتروني أو رقم الهاتف",
       });
     }
 
@@ -160,24 +171,101 @@ const forgotPassword = async (req, res) => {
       ...(phone && { phone }),
     });
 
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found with provided email or phone",
+    // The "always 200" pattern — only do real work when the account exists,
+    // but never tell the client whether it does.
+    if (user) {
+      const resetToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
       });
+      user.resetPasswordToken = resetToken;
+      user.resetPasswordTokenExpires = Date.now() + 3600000;
+      await user.save();
+
+      if (user.email) {
+        // Send via email. await so a transport error surfaces in our logs.
+        try {
+          await sendPasswordResetEmail(user.email, resetToken);
+        } catch (mailErr) {
+          console.error("sendPasswordResetEmail failed:", mailErr);
+          // Still 200 OK to the client — the user can retry. We don't want
+          // to expose mail-transport hiccups to attackers either.
+        }
+      }
+      // Phone-only users currently get no SMS. When we wire SMS, branch here.
     }
 
-    const resetToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+    res.json({
+      message: "إذا كان الحساب موجوداً، فقد أرسلنا تعليمات إعادة التعيين.",
     });
-    user.resetPasswordToken = resetToken;
-    user.resetPasswordTokenExpires = Date.now() + 3600000;
-    await user.save();
-
-    res.json({ message: "Forgot password endpoint - to be implemented" });
   } catch (error) {
     console.log("ERROR NAME:", error.name);
     console.log("ERROR MESSAGE:", error.message);
     console.log("FULL ERROR:", error);
+    res.status(500).json({ message: "Server error, please try again" });
+  }
+};
+
+// ============================================================
+// POST /api/auth/reset-password
+// ============================================================
+// Body: { token, password, confirmPassword }
+// Verifies the JWT and matches it against the user's stored
+// resetPasswordToken (so a leaked-but-revoked token can't be reused). Hashes
+// the new password and clears the reset state.
+const resetPassword = async (req, res) => {
+  try {
+    const { token, password, confirmPassword } = req.body || {};
+
+    if (!token) {
+      return res.status(400).json({ message: "رابط الاستعادة غير صالح" });
+    }
+    if (!password || password.length < 6) {
+      return res.status(400).json({
+        message: "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
+      });
+    }
+    if (password !== confirmPassword) {
+      return res.status(400).json({ message: "كلمتا المرور غير متطابقتين" });
+    }
+
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch {
+      return res.status(400).json({
+        message: "رابط الاستعادة منتهي الصلاحية أو غير صالح",
+      });
+    }
+
+    const user = await User.findById(decoded.userId);
+    if (!user) {
+      return res.status(400).json({
+        message: "رابط الاستعادة غير صالح",
+      });
+    }
+    // Match the JWT against the stored copy so a token revoked by a newer
+    // forgot-password request can't be re-used.
+    if (
+      !user.resetPasswordToken ||
+      user.resetPasswordToken !== token ||
+      !user.resetPasswordTokenExpires ||
+      user.resetPasswordTokenExpires < Date.now()
+    ) {
+      return res.status(400).json({
+        message: "رابط الاستعادة منتهي الصلاحية. يرجى طلب رابط جديد.",
+      });
+    }
+
+    // Assign the plaintext — the User model's pre('save') hook hashes it.
+    // Manually calling bcrypt.hash here would double-hash and break login.
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordTokenExpires = undefined;
+    await user.save();
+
+    res.json({ message: "تم تحديث كلمة المرور بنجاح" });
+  } catch (error) {
+    console.error("resetPassword error:", error);
     res.status(500).json({ message: "Server error, please try again" });
   }
 };
@@ -301,4 +389,4 @@ const markNotificationsRead = async (req, res) => {
   }
 };
 
-module.exports = { signup, signin, forgotPassword, verifyEmail, resendVerificationCode, getMe, getNotifications, markNotificationsRead }
+module.exports = { signup, signin, forgotPassword, resetPassword, verifyEmail, resendVerificationCode, getMe, getNotifications, markNotificationsRead }

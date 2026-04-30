@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#96f3e1",
+                        "tertiary-container": "#007769",
+                        "secondary-fixed": "#e1e3e2",
+                        "primary-fixed-dim": "#80d5cb",
+                        "outline": "#6e7977",
+                        "primary-container": "#0f766e",
+                        "surface-variant": "#d9e3f6",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#00504a",
+                        "on-surface": "#121c2a",
+                        "inverse-primary": "#80d5cb",
+                        "on-tertiary-container": "#9efbe9",
+                        "on-secondary-fixed": "#191c1c",
+                        "on-primary-fixed": "#00201d",
+                        "secondary-container": "#dee0df",
+                        "on-tertiary-fixed-variant": "#005046",
+                        "on-tertiary-fixed": "#00201b",
+                        "primary": "#005c55",
+                        "surface-bright": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "background": "#f8f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#444747",
+                        "on-secondary-container": "#606363",
+                        "tertiary-fixed-dim": "#7ad7c6",
+                        "on-primary-container": "#a3faef",
+                        "surface-tint": "#006a63",
+                        "surface-container": "#e6eeff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-dim": "#d0dbed",
+                        "surface-container-low": "#eff4ff",
+                        "secondary-fixed-dim": "#c4c7c6",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#27313f",
+                        "surface-container-highest": "#d9e3f6",
+                        "secondary": "#5c5f5e",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bdc9c6",
+                        "on-background": "#121c2a",
+                        "surface-container-high": "#dee9fc",
+                        "tertiary": "#005c51",
+                        "primary-fixed": "#9cf2e8",
+                        "on-surface-variant": "#3e4947",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["IBM Plex Sans Arabic", "Be Vietnam Pro"],
+                        "body": ["IBM Plex Sans Arabic", "Be Vietnam Pro"],
+                        "label": ["IBM Plex Sans Arabic", "Be Vietnam Pro"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'IBM Plex Sans Arabic', 'Be Vietnam Pro', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .tonal-layering { transition: background-color 0.3s ease; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-slate-50/60 backdrop-blur-xl shadow-sm shadow-teal-900/5 flex flex-row-reverse justify-between items-center px-6 py-4">
+<div class="flex items-center gap-6">
+<span class="text-2xl font-bold text-teal-800 tracking-tight">The Ethereal Marketplace</span>
+</div>
+<div class="hidden md:flex flex-row-reverse gap-8 items-center">
+<a class="text-slate-500 font-medium hover:text-teal-600 transition-colors" href="#">Browse</a>
+<a class="text-slate-500 font-medium hover:text-teal-600 transition-colors" href="#">How it Works</a>
+<a class="text-slate-500 font-medium hover:text-teal-600 transition-colors" href="#">About</a>
+</div>
+<div class="flex flex-row-reverse items-center gap-4">
+<button class="p-2 text-teal-700 hover:bg-teal-50 rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-teal-700 hover:bg-teal-50 rounded-full transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional middle-aged man with a friendly expression in a brightly lit office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACVWY1Jge8S0gqnL3Od0kRZDTlh-75w6dhlQNyY_ZXhg71EHcUp9_mdywdGYEo9onhsDTu3Y4hKYRMG9pz1vgImyUBqsEdGRMwBnL9mH8MfqEC9b0mj50KzWHk0rnOnB7U4RxOesJoN2pxE7SUgq-cNiTT9E59PrOp2UhZmFh_hFvf8elTKRM4QMpXPBAbt0nhKhruGuw0njNfoiYZqk3JgVyfEAW1thIg1gv18KTn1CHLCTL7Lo2n810AsSrSMuaEq9do83eVRW5t"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Grid -->
+<main class="pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
+<div class="mb-10 flex flex-col md:flex-row justify-between items-center gap-6">
+<div>
+<h1 class="text-4xl font-extrabold text-on-surface mb-2 tracking-tight">الملف الشخصي للعميل</h1>
+<p class="text-on-surface-variant text-lg leading-relaxed">أهلاً بك، أحمد! هنا يمكنك إدارة معلوماتك وتفضيلاتك بكل سهولة.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 bg-primary text-on-primary rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">save</span>
+                    حفظ التغييرات
+                </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Side Navigation -->
+<aside class="lg:col-span-3 space-y-2 hidden lg:block">
+<nav class="flex flex-col gap-2 p-2 bg-surface-container-low rounded-xl sticky top-24">
+<a class="flex items-center gap-3 bg-teal-50 text-teal-700 rounded-xl px-4 py-4 font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+                        نظرة عامة
+                    </a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-4 hover:bg-slate-50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">location_on</span>
+                        العناوين المسجلة
+                    </a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-4 hover:bg-slate-50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+                        طرق الدفع
+                    </a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-4 hover:bg-slate-50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">history</span>
+                        سجل الطلبات
+                    </a>
+<a class="flex items-center gap-3 text-slate-500 px-4 py-4 hover:bg-slate-50 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+                        إعدادات الحساب
+                    </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<div class="lg:col-span-9 space-y-8">
+<!-- Profile Header & Stats -->
+<section class="bg-surface-container-lowest rounded-[24px] p-8 shadow-sm shadow-on-surface/5 flex flex-col md:flex-row items-center gap-8">
+<div class="relative group flex-shrink-0">
+<div class="w-40 h-40 rounded-full overflow-hidden bg-slate-100 ring-4 ring-primary/10 transition-all group-hover:ring-primary/30">
+<img alt="Profile Large" class="w-full h-full object-cover" data-alt="Professional high-resolution headshot of a smiling man with neat beard and dark hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRGh-HWe5Qbsw8Se9B5O2tgjIL-qCnK2rgTXx_P1-rlT9PwpLQBAQk15iD2BwuOejqtItDjTE_Yx5JFlWUZr8pEWv1riJkqlp6lAwJhQrLiGuMZql_m-Z-UsIkOd69sjCunlzVHpoc_npTxwa8Gky9gIi1Xs7eq9X8EVDuO3b0Rd49eefJNQL7Meu4x7LrfJJ4j6ipS0kavTM2ZUXYPhrVcZXhtGFEhNUgQkswgkGqrx--EF8J6cniNb_R7B94ItEY1i8cN4zd_vKP"/>
+</div>
+<button class="absolute bottom-2 left-2 bg-primary text-on-primary p-2.5 rounded-full shadow-lg hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+</button>
+</div>
+<div class="text-center md:text-right flex-1 space-y-4">
+<div>
+<h2 class="text-3xl font-bold text-on-surface">أحمد السيد</h2>
+<p class="text-on-surface-variant flex items-center justify-center md:justify-start gap-2 mt-1">
+<span class="material-symbols-outlined text-sm">verified</span>
+                            عضو منذ يناير ٢٠٢٣
+                        </p>
+</div>
+<div class="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
+<div class="bg-surface-container-low px-4 py-3 rounded-2xl flex items-center gap-3">
+<div class="bg-primary/10 p-2 rounded-full text-primary">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-medium">إجمالي الحجوزات</p>
+<p class="text-lg font-bold text-on-surface">٣٤</p>
+</div>
+</div>
+<div class="bg-surface-container-low px-4 py-3 rounded-2xl flex items-center gap-3">
+<div class="bg-teal-100 p-2 rounded-full text-teal-700">
+<span class="material-symbols-outlined">favorite</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-medium">العمال المفضلين</p>
+<p class="text-lg font-bold text-on-surface">١٢</p>
+</div>
+</div>
+<div class="bg-surface-container-low px-4 py-3 rounded-2xl flex items-center gap-3">
+<div class="bg-slate-100 p-2 rounded-full text-slate-700">
+<span class="material-symbols-outlined">star</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-medium">تقييمك كعميل</p>
+<p class="text-lg font-bold text-on-surface">٤.٩</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Personal Info Grid -->
+<section class="bg-surface-container-lowest rounded-xl p-8 shadow-sm shadow-on-surface/5">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xl font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">badge</span>
+                        المعلومات الشخصية
+                    </h3>
+<button class="text-primary hover:bg-primary/5 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-1">
+<label class="block text-sm font-medium text-on-surface-variant mr-1">الاسم الكامل</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface" type="text" value="أحمد السيد"/>
+</div>
+<div class="space-y-1">
+<label class="block text-sm font-medium text-on-surface-variant mr-1">البريد الإلكتروني</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface" type="email" value="ahmad.alsayed@example.com"/>
+</div>
+<div class="space-y-1">
+<label class="block text-sm font-medium text-on-surface-variant mr-1">رقم الهاتف</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-right text-on-surface" dir="ltr" type="tel" value="+20 100 123 4567"/>
+</div>
+<div class="space-y-1">
+<label class="block text-sm font-medium text-on-surface-variant mr-1">اللغة المفضلة</label>
+<select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface">
+<option selected="">العربية</option>
+<option>English</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Interests & Preferences -->
+<section class="bg-surface-container-lowest rounded-xl p-8 shadow-sm shadow-on-surface/5">
+<h3 class="text-xl font-bold text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">interests</span>
+                    الخدمات المفضلة
+                </h3>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-full font-medium hover:bg-primary hover:text-white transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">cleaning_services</span>
+                        تنظيف المنزل
+                    </button>
+<button class="px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-full font-medium hover:bg-primary hover:text-white transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">plumbing</span>
+                        سباكة
+                    </button>
+<button class="px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-full font-medium hover:bg-primary hover:text-white transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">electrical_services</span>
+                        كهرباء
+                    </button>
+<button class="px-4 py-2 bg-surface-container border border-outline-variant text-on-surface-variant rounded-full font-medium hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                        إضافة اهتمامات
+                    </button>
+</div>
+</section>
+<!-- Address Management -->
+<section class="space-y-4">
+<div class="flex justify-between items-center px-2">
+<h2 class="text-xl font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+                        العناوين المسجلة
+                    </h2>
+<button class="text-primary font-bold hover:underline bg-primary/5 px-4 py-2 rounded-xl flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span> إضافة عنوان
+                    </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Address Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl border border-primary/20 relative shadow-sm hover:shadow-md transition-shadow">
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="bg-primary-container text-on-primary-container text-xs font-bold px-3 py-1 rounded-full">الأساسي</span>
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined text-sm">edit</span></button>
+</div>
+<div class="flex items-start gap-4">
+<div class="bg-primary/5 p-4 rounded-full">
+<span class="material-symbols-outlined text-primary text-xl">home</span>
+</div>
+<div class="space-y-2 mt-1">
+<p class="font-bold text-lg text-on-surface">المنزل</p>
+<p class="text-on-surface-variant text-sm leading-relaxed">المعادي، شارع ٩<br/>القاهرة، مصر</p>
+</div>
+</div>
+</div>
+<!-- Address Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl hover:bg-slate-50 transition-all border border-slate-200 shadow-sm relative group">
+<div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined text-sm">edit</span></button>
+</div>
+<div class="flex items-start gap-4">
+<div class="bg-slate-100 p-4 rounded-full">
+<span class="material-symbols-outlined text-slate-600 text-xl">work</span>
+</div>
+<div class="space-y-2 mt-1">
+<p class="font-bold text-lg text-on-surface">المكتب</p>
+<p class="text-on-surface-variant text-sm leading-relaxed">القرية الذكية، مبنى ب٢<br/>السادس من أكتوبر، مصر</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Payment Methods -->
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-on-surface px-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">payments</span>
+                    طرق الدفع
+                </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-6 bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-2xl shadow-xl flex flex-col justify-between h-48 relative overflow-hidden">
+<div class="absolute -right-10 -top-10 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+<div class="flex justify-between items-start relative z-10">
+<span class="material-symbols-outlined text-3xl">contactless</span>
+<img alt="Visa Logo" class="h-5 opacity-80 grayscale invert" data-alt="Stylized glowing abstract digital lines representing high-tech financial transactions" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMTfcvxnQLGurjMFhYI8bHguCI8fC8GXKc6H_1b66PH9IEYFGMJE5DRUgaLgZps1nVeTLCCxm_7uNYeOIyltADi-aOiT_Bthq1JuGv9Aa2BfCVI6p2kGIwOm835W_Z1rpMxNdCEI8WLHrU5ygS3ofk9ErQuwkllO4At-Io1ywSrw5gbbcQBMY0akxgkCF9nseweJswULMWZ14vRZKGypS9TbId2rbEa2I4osvy2izxGHiiDl7c977JMtHlk7jCxfzX2quGqe4gg9FB"/>
+</div>
+<div class="space-y-2 relative z-10 mt-auto">
+<p class="text-lg opacity-90 tracking-[0.2em] font-mono">**** **** **** 4242</p>
+<div class="flex justify-between items-end">
+<p class="font-bold tracking-wider text-sm opacity-80">AHMAD AL-SAYED</p>
+<p class="text-xs opacity-60">12/25</p>
+</div>
+</div>
+</div>
+<div class="p-6 bg-surface-container-lowest rounded-2xl border-2 border-dashed border-primary/30 flex flex-col items-center justify-center h-48 text-primary hover:bg-primary/5 transition-colors cursor-pointer group">
+<div class="bg-primary/10 p-3 rounded-full mb-3 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</div>
+<p class="font-bold">إضافة بطاقة جديدة</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-slate-50 border-t border-slate-100 mt-20">
+<div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row-reverse justify-between items-center gap-6">
+<div class="text-lg font-bold text-teal-800">The Ethereal Marketplace</div>
+<div class="flex flex-row-reverse gap-6 text-sm text-slate-500 font-medium">
+<a class="hover:underline decoration-teal-500 underline-offset-4" href="#">سياسة الخصوصية</a>
+<a class="hover:underline decoration-teal-500 underline-offset-4" href="#">شروط الخدمة</a>
+<a class="hover:underline decoration-teal-500 underline-offset-4" href="#">الدعم</a>
+<a class="hover:underline decoration-teal-500 underline-offset-4" href="#">اتصل بنا</a>
+</div>
+<p class="text-sm text-slate-500 text-right">© 2024 The Ethereal Marketplace. All rights reserved.</p>
+</div>
+</footer>
+<!-- Bottom Navigation (Mobile Only) -->
+<div class="md:hidden fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md shadow-[0_-4px_20px_rgba(0,0,0,0.05)] grid grid-cols-4 py-3 z-50">
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px] font-bold">اكتشف</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">history</span>
+<span class="text-[10px] font-bold">طلباتي</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-[10px] font-bold">المفضلة</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-teal-600">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-[10px] font-bold">حسابي</span>
+</button>
+</div>
+</body></html>
